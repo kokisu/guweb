@@ -92,11 +92,11 @@
     </div>
     <div v-if="data.maps.{{ id }}.out.length != 0" class="beatmaps">
         <a v-for="(map, index) in data.maps.{{ id }}.out" class="beatmap-block">
-            <div class="beatmap-preview"
+            <div class="beatmap-preview" :href="'https://osu.{{ domain() }}/beatmaps/' + map.id"
                 v-bind:style='{ background: `url(https://assets.ppy.sh/beatmaps/${map.set_id}/covers/card.jpg)` }'>
             </div>
             <div class="beatmap-stats"><span class="beatmap-title">
-                    <% map.title %>
+                    <% map.title %> [<% map.version %>]
                 </span> <span class="beatmap-artist">
                     <% map.artist %>
                 </span>
