@@ -1,6 +1,6 @@
 {
-    "name": "guweb",
-    "short_name": "guweb",
+    "name": "kokisu",
+    "short_name": "kokisu",
     "icons": [
         {
             "src": "/static/favicon/android-chrome-192x192.png",
