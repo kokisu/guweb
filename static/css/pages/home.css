@@ -24,7 +24,8 @@
   max-width: inherit;
 }
 
-#title, #mascot {
+#title,
+#mascot {
   animation: appear 0.4s ease;
 }
 
@@ -33,6 +34,7 @@
     -webkit-transform: translateY(-50px);
     opacity: 0;
   }
+
   100% {
     -webkit-transform: translateY(0);
     opacity: 1;
@@ -43,30 +45,53 @@
   .gulag-avatar {
     display: none;
   }
+
   #home-hero .columns.flex-vcenter {
     padding: 0 20px;
   }
+
   .main-block {
     width: initial;
     height: 285px;
   }
+
   #mascot {
     display: none !important;
   }
+
   .my-con {
     margin: 60px 0 0 0;
   }
+
   #home-hero {
     height: 300px;
   }
 }
 
 .splash {
-  background: linear-gradient(0deg, rgba(106,90,255,1) 0%, rgba(63,115,166,1) 100%);
+  background: linear-gradient(0deg, rgba(106, 90, 255, 1) 0%, rgba(63, 115, 166, 1) 100%);
   background-repeat: no;
   background-size: cover;
 }
 
 .footer {
   margin: 0;
+}
+
+.users {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-counter {
+  padding: 5px 16px;
+  margin: 16px 0;
+  background: rgba(87, 87, 87, 0.6);
+  /* background: rgba(0, 0, 0, .6); */
+  width: fit-content;
+  border-radius: 32px;
+  font-size: .92rem;
+  color: #fff;
 }

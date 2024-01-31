@@ -43,8 +43,8 @@
         <div class="column flex-vcenter flex-lcenter is-size-2-desktop is-size-1-fullhd" id="title">
           <h1 class="title is-spaced is-size-2-desktop is-size-1-fullhd">{{ appName() }}</h1>
           <h2 class="subtitle">
-            We are an osu! private server built from the ground up with many<br/>
-            unique features not seen elsewhere - for more information, check<br/>
+            We are an osu! private server built from the ground up with many<br />
+            unique features not seen elsewhere - for more information, check<br />
             out <a href="http://github.com/cmyui/gulag">gulag</a>
             and <a href="https://github.com/Varkaria/guweb">guweb</a>
             on GitHub - we're fully open source!
@@ -59,6 +59,14 @@
             </a>
           </div>
           {% endif %}
+          <div id="users" class="users">
+            <div class="user-counter">
+              <span style="color: #68d57f;">{{ user_count("online") }}</span> online users
+            </div>
+            <div class="user-counter">
+              <span style="color: #e7556b;">{{ user_count("total") }}</span> registered users
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -59,6 +59,14 @@ def captchaKey() -> str:
 def domain() -> str:
     return glob.config.domain
 
+@app.template_global()
+async def user_count(count: str) -> int:
+    try:
+        async with glob.http.get(f"https://api.{glob.config.domain}/v1/get_player_count") as response:
+            return (await response.json())["counts"][count]
+    except:
+        return -1
+
 from blueprints.frontend import frontend
 app.register_blueprint(frontend)
 
