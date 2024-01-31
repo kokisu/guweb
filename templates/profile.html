@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 {% block title %} Profile {% endblock %}
 
-{% macro playstats(map) %}
-<% map[`max_combo`] %>x <% ("+ " + map[`mods_readable`] + " ").replace("NM", "").replace("RXNC", "NCRX").replace("APNC", "NCAP").replace("HDHRNC", "HDNCHR").replace("NFNC", "NCNF").replace("RX", "").replace("AP", "").replace("+  ", "").replace("+ ", "+") %> <% map[`combo`] %>x <div style="display: inline-block;" v-if="map[`fc`] == 1">FC</div> [ <span style="color: rgb(178, 219, 232);">⬤</span> <% addCommas(map[`n300`]) %><b>/</b> <span style="color: rgb(172, 235, 140);">⬤</span> <% addCommas(map[`n100`]) %><b>/</b> <span style="color: rgb(232, 213, 167);">⬤</span> <% addCommas(map[`n50`]) %><b>/</b> <span style="color: rgb(254, 179, 179);">⬤</span> <% addCommas(map[`nmiss`]) %> ]
+{% macro playstats() %}
+<% addCommas(map[`n100`]) %> <span style="color: rgb(172, 235, 140);">⬤</span> 
+<% addCommas(map[`n50`]) %> <span style="color: rgb(232, 213, 167);">⬤</span>
+<% addCommas(map[`nmiss`]) %> <span style="color: rgb(254, 179, 179);">⬤</span>
+<div v-if="map[`max_combo`] == map[`beatmap`][`max_combo`]" style="display: inline-block; color: gold">FC</div>
+<% map[`max_combo`] %>/<% map[`beatmap`][`max_combo`] %>x
+
 {% endmacro %}
 
 {% macro scores(title, id) %}
@@ -24,11 +29,11 @@
                     <div class="map-title-block">
                         <div class="map-title">
                             <a class="beatmap-link">
-                                <% map.beatmap.artist %> - <% map.beatmap.title %> [<% map.beatmap.version %>] <!--<span v-if="map.mods != 0">+ <% modsStr(map.mods) %></span>-->
+                                <% map.beatmap.artist %> - <% map.beatmap.title %> [<% map.beatmap.version %>] <% ("+ " + map[`mods_readable`] + " ").replace("NM", "").replace("RXNC", "NCRX").replace("APNC", "NCAP").replace("HDHRNC", "HDNCHR").replace("NFNC", "NCNF").replace("RX", "").replace("AP", "").replace("+  ", "").replace("+ ", "+") %>
                             </a>
                         </div>
                         <div class="play-stats">
-                            {{ playstats(map) }}
+                            {{ playstats() }}
                         </div>
                         <div class="map-date">
                             <time>
