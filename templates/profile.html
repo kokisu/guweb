@@ -28,7 +28,7 @@
                     </div>
                     <div class="map-title-block">
                         <div class="map-title">
-                            <a class="beatmap-link">
+                            <a class="beatmap-link" :href="'https://osu.{{ domain() }}/beatmaps/' + map.beatmap.id">
                                 <% map.beatmap.artist %> - <% map.beatmap.title %> [<% map.beatmap.version %>] <% ("+ " + map[`mods_readable`] + " ").replace("NM", "").replace("RXNC", "NCRX").replace("APNC", "NCAP").replace("HDHRNC", "HDNCHR").replace("NFNC", "NCNF").replace("RX", "").replace("AP", "").replace("+  ", "").replace("+ ", "+") %>
                             </a>
                         </div>
