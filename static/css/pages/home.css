@@ -62,7 +62,7 @@
 }
 
 .splash {
-  background: linear-gradient(180deg, rgba(137,57,143,1) 0%, rgba(67,74,201,1) 100%);
+  background: linear-gradient(0deg, rgba(106,90,255,1) 0%, rgba(63,115,166,1) 100%);
   background-repeat: no;
   background-size: cover;
 }

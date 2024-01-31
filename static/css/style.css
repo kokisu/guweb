@@ -176,8 +176,17 @@ a.foot-link {
 }
 
 .navbar-logo {
-  font-size: 22px;
-  font-weight: 500;
+  object-fit: cover;
+  padding-right: 0;
+  padding-top: 3.75;
+}
+
+.navbar-logo-img {
+  background-image: url(/static/images/kokisu.png);
+  background-repeat: no-repeat;
+  width: 118px;
+  height: 32px;
+  background-size: contain;
 }
 
 .navbar.is-spaced {
