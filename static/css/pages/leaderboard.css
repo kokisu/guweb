@@ -16,7 +16,8 @@ a:hover {
 }
 
 .leaderboard-banner {
-  background-color: hsl(var(--main), 30%, 50%);
+  background: url("https://wallpaperaccess.com/full/527686.jpg");
+  background-size: stretch;
   height: 194px;
   border-radius: 0;
   border-top-right-radius: 8px;
