@@ -323,6 +323,10 @@ async def profile_select(id):
     if not user_data:
         return (await render_template('404.html'), 404)
 
+    # no point in viewing bot's profile
+    if user_data["id"] == 1:
+        return (await render_template('404.html'), 404)
+
     # make sure mode & mods are valid args
     if mode is not None and mode not in VALID_MODES:
         return (await render_template('404.html'), 404)
