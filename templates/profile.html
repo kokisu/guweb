@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block title %} Profile {% endblock %}
 
+{% macro playstats(map) %}
+<% map[`max_combo`] %>x <% ("+ " + map[`mods_readable`] + " ").replace("NM", "").replace("RXNC", "NCRX").replace("APNC", "NCAP").replace("HDHRNC", "HDNCHR").replace("NFNC", "NCNF").replace("RX", "").replace("AP", "").replace("+  ", "").replace("+ ", "+") %> <% map[`combo`] %>x <div style="display: inline-block;" v-if="map[`fc`] == 1">FC</div> [ <span style="color: rgb(178, 219, 232);">⬤</span> <% addCommas(map[`n300`]) %><b>/</b> <span style="color: rgb(172, 235, 140);">⬤</span> <% addCommas(map[`n100`]) %><b>/</b> <span style="color: rgb(232, 213, 167);">⬤</span> <% addCommas(map[`n50`]) %><b>/</b> <span style="color: rgb(254, 179, 179);">⬤</span> <% addCommas(map[`nmiss`]) %> ]
+{% endmacro %}
+
 {% macro scores(title, id) %}
 <div class="log-block" v-bind:class="{ 'load' : data.scores.{{ id }}.load }">
     <div class="header">
@@ -24,7 +28,7 @@
                             </a>
                         </div>
                         <div class="play-stats">
-                            <% addCommas(map.score) %> / <% map.max_combo %><b>x</b>
+                            {{ playstats(map) }}
                         </div>
                         <div class="map-date">
                             <time>
