@@ -62,7 +62,9 @@
 }
 
 .splash {
-  background: hsl(var(--main), 40%, 40%);
+  background: linear-gradient(180deg, rgba(137,57,143,1) 0%, rgba(67,74,201,1) 100%);
+  background-repeat: no;
+  background-size: cover;
 }
 
 .footer {
