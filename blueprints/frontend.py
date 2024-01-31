@@ -44,6 +44,10 @@ def login_required(func):
 async def home():
     return await render_template('home.html')
 
+@frontend.route('/forgot')
+async def forgot():
+    return await render_template('forgot.html')
+
 @frontend.route('/rules')
 async def rules():
     return await render_template('rules.html')
