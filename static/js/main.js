@@ -1,5 +1,6 @@
 // sticky header
 $(window).scroll(() => {
+    return;
     var header = document.getElementById("navbar");
     var sticky = header.offsetTop;
 
