@@ -498,7 +498,7 @@ async def register_post():
     if username.startswith(" ") or username.endswith(" ") or "  " in username:
         return await flash('error', 'Username may not start or end with " " or have two spaces in a row.', 'register')
 
-    if await glob.db.fetch('SELECT 1 FROM users WHERE name = %s', username):
+    if await glob.db.fetch('SELECT 1 FROM users WHERE safe_name = %s', utils.get_safe_name(username)):
         return await flash('error', 'Username already taken by another user.', 'register')
 
     # Emails must:
