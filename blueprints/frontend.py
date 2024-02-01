@@ -102,7 +102,7 @@ async def settings_profile_post():
         if new_name in glob.config.disallowed_names:
             return await flash('error', "Your new username isn't allowed; pick another.", 'settings/profile')
 
-        if username.startswith(" ") or username.endswith(" ") or "  " in username:
+        if new_name.startswith(" ") or new_name.endswith(" ") or "  " in new_name:
             return await flash('error', 'Username may not start or end with " " or have two spaces in a row.', 'settings/profile')
 
         if await glob.db.fetch('SELECT 1 FROM users WHERE safe_name = %s', [utils.get_safe_name(new_name)]):
