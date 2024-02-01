@@ -92,6 +92,7 @@ async def settings_profile_post():
         # - not contain both ' ' and '_', one is fine
         # - not be in the config's `disallowed_names` list
         # - not already be taken by another player
+        # - not start or end with a space or have multiple spaces in a row
         if not regexes.username.match(new_name):
             return await flash('error', 'Your new username syntax is invalid.', 'settings/profile')
 
@@ -101,7 +102,10 @@ async def settings_profile_post():
         if new_name in glob.config.disallowed_names:
             return await flash('error', "Your new username isn't allowed; pick another.", 'settings/profile')
 
-        if await glob.db.fetch('SELECT 1 FROM users WHERE name = %s', [new_name]):
+        if username.startswith(" ") or username.endswith(" ") or "  " in username:
+            return await flash('error', 'Username may not start or end with " " or have two spaces in a row.', 'settings/profile')
+
+        if await glob.db.fetch('SELECT 1 FROM users WHERE safe_name = %s', [utils.get_safe_name(new_name)]):
             return await flash('error', 'Your new username already taken by another user.', 'settings/profile')
 
         safe_name = utils.get_safe_name(new_name)
