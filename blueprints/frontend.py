@@ -484,7 +484,8 @@ async def register_post():
     # - not contain both ' ' and '_', one is fine
     # - not be in the config's `disallowed_names` list
     # - not already be taken by another player
-    # check if username exists
+    # - not start or end with a space or have multiple spaces in a row
+    # - check if username exists
     if not regexes.username.match(username):
         return await flash('error', 'Invalid username syntax.', 'register')
 
@@ -493,6 +494,9 @@ async def register_post():
 
     if username in glob.config.disallowed_names:
         return await flash('error', 'Disallowed username; pick another.', 'register')
+
+    if username.startswith(" ") or username.endswith(" ") or "  " in username:
+        return await flash('error', 'Username may not start or end with " " or have two spaces in a row.', 'register')
 
     if await glob.db.fetch('SELECT 1 FROM users WHERE name = %s', username):
         return await flash('error', 'Username already taken by another user.', 'register')
