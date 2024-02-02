@@ -2,6 +2,11 @@
 {% block title %} Home {% endblock %}
 
 {% block header %}
+<script src="/static/js/asserts/vue.js"></script>
+<script src="/static/js/asserts/vue-axios.js"></script>
+<script>
+  var domain = "{{ domain() }}";
+</script>
 <link rel="stylesheet" href="/static/css/pages/home.css">
 {% endblock %}
 
@@ -36,7 +41,7 @@
 </div>
 {% endif %}
 
-<center>
+<center id="home-app">
   <div class="hero splash p-less is-fullheight-with-navbar" id="home-hero">
     <div class="container flex">
       <div class="columns flex-vcenter">
@@ -58,10 +63,10 @@
           {% endif %}
           <div id="users" class="users">
             <div class="user-counter">
-              <span style="color: #68d57f;">{{ user_count("online") }}</span> online users
+              <span style="color: #68d57f;"><% online_users %></span> online users
             </div>
             <div class="user-counter">
-              <span style="color: #e7556b;">{{ user_count("total") }}</span> registered users
+              <span style="color: #e7556b;"><% registered_users %></span> registered users
             </div>
           </div>
         </div>
@@ -69,5 +74,7 @@
     </div>
   </div>
 </center>
+
+<script src="/static/js/pages/home.js"></script>
 
 {% endblock %}
