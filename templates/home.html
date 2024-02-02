@@ -1,3 +1,23 @@
+<!-- HTML Meta Tags -->
+<meta name="description" content="kokisu - An osu! private server dedicated to sst3w's cat Koki!">
+
+<!-- Google / Search Engine Tags -->
+<meta itemprop="name" content="Home - kokisu">
+<meta itemprop="description" content="kokisu - An osu! private server dedicated to sst3w's cat Koki!">
+<meta itemprop="image" content="https://{{ domain() }}/static/favicon/android-chrome-256x256.png">
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://{{ domain() }}/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Home - kokisu">
+<meta property="og:description" content="kokisu - An osu! private server dedicated to sst3w's cat Koki!">
+<meta property="og:image" content="https://{{ domain() }}/static/favicon/android-chrome-256x256.png">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:title" content="Home - kokisu">
+<meta name="twitter:description" content="kokisu - An osu! private server dedicated to sst3w's cat Koki!">
+<meta name="twitter:image" content="https://{{ domain() }}/static/favicon/android-chrome-256x256.png">
+
 {% extends 'base.html' %}
 {% block title %} Home {% endblock %}
 
@@ -46,10 +66,13 @@
     <div class="container flex">
       <div class="columns flex-vcenter">
         <div class="column flex-vcenter flex-lcenter is-size-2-desktop is-size-1-fullhd" id="title">
-          <h1 class="title is-spaced is-size-2-desktop is-size-1-fullhd"><div class="navbar-logo-img" style="width:300px; height: 81px; margin-bottom:40px"></h1>
+          <h1 class="title is-spaced is-size-2-desktop is-size-1-fullhd">
+            <div class="navbar-logo-img" style="width:300px; height: 81px; margin-bottom:40px">
+          </h1>
           <h2 class="subtitle">
-            Welcome to Kokisu, the osu! private server that honors sst3w's popular internet cat called Koki!<br/>
-            We offer a vanilla, autopilot & relax osu! experience. Join our <a href="/discord">Discord</a> for the latest updates!
+            Welcome to Kokisu, the osu! private server that honors sst3w's popular internet cat called Koki!<br />
+            We offer a vanilla, autopilot & relax osu! experience. Join our <a href="/discord">Discord</a> for the
+            latest updates!
           </h2>
           {% if not session.authenticated %}
           <div class="buttons flex-lcenter">
@@ -63,10 +86,14 @@
           {% endif %}
           <div id="users" class="users">
             <div class="user-counter">
-              <span style="color: #68d57f;"><% online_users %></span> online users
+              <span style="color: #68d57f;">
+                <% online_users %>
+              </span> online users
             </div>
             <div class="user-counter">
-              <span style="color: #e7556b;"><% registered_users %></span> registered users
+              <span style="color: #e7556b;">
+                <% registered_users %>
+              </span> registered users
             </div>
           </div>
         </div>

@@ -2,7 +2,7 @@
 
 <head>
   <!-- Title -->
-  <title>{{ appName() }} - {% block title %}{% endblock %}</title>
+  <title>{% block title %} - {{ appName() }}{% endblock %}</title>
 
   <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
@@ -14,27 +14,6 @@
   <meta name="msapplication-TileColor" content="#3F73A6">
   <meta name="msapplication-config" content="/static/favicon/browserconfig.xml">
   <meta name="theme-color" content="#3F73A6">
-
-  <!-- HTML Meta Tags -->
-  <title>Home - kokisu</title>
-  <meta name="description" content="kokisu - An osu! private server dedicated to sst3w's cat Koki!">
-
-  <!-- Google / Search Engine Tags -->
-  <meta itemprop="name" content="Home - kokisu">
-  <meta itemprop="description" content="kokisu - An osu! private server dedicated to sst3w's cat Koki!">
-  <meta itemprop="image" content="https://{{ domain() }}/static/favicon/android-chrome-256x256.png">
-
-  <!-- Facebook Meta Tags -->
-  <meta property="og:url" content="https://{{ domain() }}/">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Home - kokisu">
-  <meta property="og:description" content="kokisu - An osu! private server dedicated to sst3w's cat Koki!">
-  <meta property="og:image" content="https://{{ domain() }}/static/favicon/android-chrome-256x256.png">
-
-  <!-- Twitter Meta Tags -->
-  <meta name="twitter:title" content="Home - kokisu">
-  <meta name="twitter:description" content="kokisu - An osu! private server dedicated to sst3w's cat Koki!">
-  <meta name="twitter:image" content="https://{{ domain() }}/static/favicon/android-chrome-256x256.png">
 
   <!-- Metadata -->
   <meta name="viewport" content="width=device-width, initial-scale=1">

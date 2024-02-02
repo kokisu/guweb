@@ -1,5 +1,4 @@
 <!-- HTML Meta Tags -->
-<title>{{ user['name'] }}'s Profile - kokisu</title>
 <meta name="description" content="{{ user['name'] }}'s profile on kokisu - An osu! private server dedicated to sst3w's cat Koki!">
 
 <!-- Google / Search Engine Tags -->
@@ -20,7 +19,7 @@
 <meta name="twitter:image" content="http://a.{{ domain() }}/{{ user['id'] }}">
 
 {% extends 'base.html' %}
-{% block title %} Profile {% endblock %}
+{% block title %} {{ user['name'] }}'s Profile {% endblock %}
 
 {% macro playstats() %}
 <% addCommas(map[`n100`]) %> <span style="color: rgb(172, 235, 140);">⬤</span> 
