@@ -1,3 +1,9 @@
+@media screen and (min-width: 1140px) {
+  #app {
+    zoom: 1.1;
+  }
+}
+
 .main-block {
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
@@ -160,7 +166,11 @@ td {
   display: block;
   margin-top: 8px;
 }
-.grade-block .media-content { overflow-x: unset !important; }
+
+.grade-block .media-content {
+  overflow-x: unset !important;
+}
+
 .map-rank {
   font-size: 24px;
   font-weight: 600;
@@ -222,8 +232,7 @@ html {
   top: 0;
   left: 0;
   height: 100%;
-  background: hsl(var(
-  --main), 30%, 50%);
+  background: hsl(var(--main), 30%, 50%);
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
 }
@@ -347,7 +356,7 @@ html {
   align-items: flex-start;
 }
 
-.map-date > time {
+.map-date>time {
   margin-top: 2px;
 }
 
@@ -604,22 +613,30 @@ span.beatmap-mapper {
   .two-sides {
     display: contents !important;
   }
-  p.ranks { width: 360px; }
+
+  p.ranks {
+    width: 360px;
+  }
+
   .column.is-one-third,
   .column.is-one-third-tablet {
     flex: none;
     width: 100%;
   }
+
   .columns.is-marginless.is-2 {
     display: none;
   }
+
   .profile-bg {
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
   }
+
   .beatmaps {
     grid-template-columns: inherit;
   }
+
   .beatmap-block {
     width: 100%;
   }
@@ -629,9 +646,11 @@ span.beatmap-mapper {
   .bar-selection {
     padding: 10px 13px 10px 45px;
   }
+
   .anime-girl {
     opacity: 0;
   }
+
   .profile-avatar {
     width: 140px;
     height: 140px;
@@ -639,6 +658,7 @@ span.beatmap-mapper {
     border-radius: 15px;
     object-fit: cover;
   }
+
   .info-block {
     display: flex;
     flex-direction: column;
@@ -652,12 +672,15 @@ span.beatmap-mapper {
   .mode-text {
     display: none;
   }
+
   .mods-shorttext {
     display: block;
   }
+
   .mods-fulltext {
     display: none;
   }
+
   .simple-banner-switch {
     padding: 6px 10px;
     border-radius: 3px;
@@ -665,6 +688,7 @@ span.beatmap-mapper {
     margin: 0 12px 0 0;
     font-size: 12px;
   }
+
   .mode-icon {
     margin-right: 0px;
   }
@@ -674,22 +698,27 @@ span.beatmap-mapper {
   .subtitle {
     width: 200px;
   }
+
   .title {
     width: inherit;
   }
+
   .info-block {
     padding: 10px 110px 50px 195px;
   }
 }
+
 @media screen and (max-width: 550px) {
   p.ranks {
-      width: 235px;
+    width: 235px;
   }
 }
+
 @media screen and (max-width: 450px) {
   p.ranks {
     width: 145px;
   }
+
   .info-block {
     padding: 10 200;
   }
@@ -713,19 +742,26 @@ span.beatmap-mapper {
   color: #8dc36b;
 }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity .5s;
 }
-.fade-enter, .fade-leave-to {
+
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 
-.pop-enter-active, .pop-leave-active {
+.pop-enter-active,
+.pop-leave-active {
   transition: all .5s ease;
 }
-.pop-enter, .pop-leave-to {
+
+.pop-enter,
+.pop-leave-to {
   transform: scale(0.8);
 }
+
 .log-block {
   transition: 0.2s ease;
   margin-bottom: 12px;
