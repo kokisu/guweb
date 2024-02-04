@@ -377,9 +377,14 @@ html {
   justify-content: center;
 }
 
+.map-mods {
+  color: hsl(var(--main), 88%, 88%);
+  font-size: 14px;
+}
+
 .map-pp {
-  font-weight: 700;
-  color: hsl(var(--main), 30%, 55%);
+  font-weight: 550;
+  color: hsl(var(--main), 50%, 75%);
   font-size: 20px;
 }
 
@@ -387,6 +392,17 @@ html {
   font-size: 12px;
   display: flex;
   justify-content: flex-end;
+}
+
+.download-replay {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  margin: 0px -8px 0px -12px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
 }
 
 .main-stats {
