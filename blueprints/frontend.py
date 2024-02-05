@@ -476,7 +476,7 @@ async def register_post():
     if username is None or email is None or passwd_txt is None or confirm_passwd_txt is None:
         return await flash('error', 'Invalid parameters.', 'home')
 
-    if passwd_txt is not confirm_passwd_txt:
+    if passwd_txt != confirm_passwd_txt:
          return await flash('error', 'The entered passwords do not match.', 'register')
 
     if glob.config.hCaptcha_sitekey != 'changeme':

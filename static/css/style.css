@@ -172,7 +172,7 @@ a.foot-link {
   position: fixed !important;
   width: 100%;
   transition: 0.2s ease;
-  min-height: 0rem;
+  min-height: 55px;
 }
 
 .navbar-logo {
@@ -187,6 +187,86 @@ a.foot-link {
   width: 118px;
   height: 32px;
   background-size: contain;
+}
+
+.navbar-avatar {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid #fff;
+  border-radius: 100px;
+  margin-right: 8px;
+  transition: .2s ease;
+}
+
+#search-txt {
+  min-width: 0vw;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  color: rgb(255, 255, 255) !important; 
+  background-color: hsl(var(--main), 40% 70%);
+  padding: 8px 7px;
+}
+
+#search-txt::placeholder {
+  color: rgb(255, 255, 255) !important; 
+}
+
+.search-results {
+  position: absolute;
+  top: 50;
+  width: 94.5%;
+  height: auto;
+  max-height: 500px;
+  border-radius: 5px;
+  padding: 2px;
+  background: hsl(var(--main), 31%, 43%);
+  overflow-y: scroll;
+  z-index: 1
+}
+
+.result-wrapper {
+  height: 60px;
+  margin: 5px;
+  cursor: pointer
+}
+
+#result-image {
+  width: 60px;
+  height: 60px;
+  background-position: center;
+  background-size: cover;
+  border-radius: 5px;
+  display: inline-block;
+  vertical-align: middle
+}
+
+#result-name {
+  display: inline-block;
+  width: 80%;
+  height: 100%;
+  text-align: left;
+  font-weight: 700;
+  padding-left: 15px;
+  font-size: 20px
+}
+
+.search-results::-webkit-scrollbar {
+  width: 12px;
+  border-bottom-right-radius: 8px
+}
+
+.search-results::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: hsl(var(--main),30%,60%);
+}
+
+.search-bar button {
+  padding: 10px;
+  background: 0 0;
+  border: none;
+  cursor: pointer;
+  color: #fff;
 }
 
 .navbar.is-spaced {
