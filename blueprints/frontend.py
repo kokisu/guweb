@@ -6,6 +6,8 @@ import bcrypt
 import hashlib
 import os
 import time
+import timeago
+import datetime
 
 from cmyui.logging import Ansi
 from cmyui.logging import log
@@ -321,7 +323,7 @@ async def profile_select(id):
     mode = request.args.get('mode', 'std', type=str) # 1. key 2. default value
     mods = request.args.get('mods', 'vn', type=str)
     user_data = await glob.db.fetch(
-        'SELECT name, safe_name, id, priv, country '
+        'SELECT name, safe_name, id, priv, country, creation_time, latest_activity '
         'FROM users '
         'WHERE safe_name = %s OR id = %s LIMIT 1',
         [utils.get_safe_name(id), id]
@@ -347,7 +349,8 @@ async def profile_select(id):
         return (await render_template('404.html'), 404)
 
     user_data['customisation'] = utils.has_profile_customizations(user_data['id'])
-    return await render_template('profile.html', user=user_data, mode=mode, mods=mods)
+    group_list = utils.userbadges(int(user_data['id']), int(user_data['priv']))
+    return await render_template('profile.html', user=user_data, group_list=group_list, mode=mode, mods=mods, datetime=datetime, timeago=timeago)
 
 
 @frontend.route('/leaderboard')

@@ -237,7 +237,9 @@
             </div>
             <div class="bar-selection badge-selects">
                 <span>
-                    Badges not yet implemented!
+                    {% for el in group_list %}
+                        <span class="is-badge" style="color: {{ el[2] }}"><i class="fas fa-{{ el[0] }}" style="margin-right:3px;"></i> {{ el[1] }}</span>
+                    {% endfor %}
                 </span>
             </div>
         </div>
@@ -320,6 +322,25 @@
                                 <td><b>Accuracy</b></td>
                                 <td class="right-aligned">
                                     <% data.stats.out[modegulag].acc.toFixed(2) %>%
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Registered</b></td>
+                                <td class="right-aligned">
+                                    {{ timeago.format((datetime.datetime.fromtimestamp(user.creation_time)),
+                                    (datetime.datetime.now() + datetime.timedelta(seconds=60 * 3.4))) }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Last seen</b></td>
+                                <td class="right-aligned">
+                                    <span id="latest" v-if="data.status.online == false">
+                                        {{ timeago.format((datetime.datetime.fromtimestamp(user.latest_activity)),
+                                        (datetime.datetime.now() + datetime.timedelta(seconds=60 * 3.4))) }}
+                                    </span>
+                                    <span id="latest" v-if='data.status.online == true'>
+                                        Just now
+                                    </span>
                                 </td>
                             </tr>
                         </tbody>

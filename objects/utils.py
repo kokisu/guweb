@@ -11,6 +11,7 @@ from quart import session
 
 from objects import glob
 from objects import utils
+from objects.privileges import Privileges
 
 if TYPE_CHECKING:
     from PIL.Image import Image
@@ -163,3 +164,34 @@ def crop_image(image: 'Image') -> 'Image':
         image = image.crop([0, offset, width, height-offset])
 
     return image
+
+def userbadges(uid: int, privs: int):
+    group_list = []
+    user_priv = Privileges(int(privs))
+    if Privileges.Dangerous in user_priv:
+        group_list.append(["code" ,"Developer", "#9DE3FF"])
+    if Privileges.Normal not in user_priv:
+        group_list.append(["ban", "Restricted", "black"])
+    else:
+        if int(uid) in [3, 4]:
+            group_list.append(["crown" ,"Owner", "#DE9DFF"])
+        if Privileges.Admin in user_priv:
+            group_list.append(["star", "Admin", "#FEFF9D"])
+        if int(uid) in [3]:
+            group_list.append(["transgender", "  Trans" , "#F5A9B8"])  
+        if int(uid) in [8]:
+            group_list.append(["bug", "  Official Test Account" , "#b8fffa"])
+        if Privileges.Mod in user_priv:
+            group_list.append(["hammer", "GMT", "#9DFFAA"])
+        if Privileges.Nominator in user_priv:
+            group_list.append(["music", "Beatmap Nominator", "#9DFFFB"])
+        if Privileges.Whitelisted in user_priv:
+            group_list.append(["check", "Verified", "#9DFFA0"])
+        if Privileges.Supporter in user_priv:
+            group_list.append(["heart", "Supporter", "#FF9DF5"])
+        if Privileges.Premium in user_priv:
+            group_list.append(["gem", "Premium", "#FFCBFA"])
+        if Privileges.Alumni in user_priv:
+            group_list.append(["heart", "Contributor", "#FF66AA"])
+
+    return group_list

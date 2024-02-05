@@ -109,6 +109,7 @@
 
 .badge-selects {
   background: hsl(var(--main), 16%, 20%);
+  display: inline-table;
 }
 
 .select-left {
@@ -781,4 +782,39 @@ span.beatmap-mapper {
 .log-block {
   transition: 0.2s ease;
   margin-bottom: 12px;
+}
+
+.is-badge {
+  display: inline-block;
+  background: hsl(var(--main),12%,15%);
+  color: white;
+  border-radius: 25px;
+  justify-content: center;
+  padding-bottom: calc(.5em - 1px);
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: calc(.5em - 1px);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.is-badge {
+      display: inline-block;
+      background: hsl(var(--main),12%,15%);
+      color: white;
+      border-radius: 15px;
+      justify-content: center;
+      padding-bottom: calc(.5em - 1px);
+      padding-left: 1em;
+      padding-right: 1em;
+      padding-top: calc(.5em - 1px);
+      text-align: center;
+      white-space: nowrap;
+      transition: all 0.3s ease-in-out;
+      margin: 3px 0px 3px;
+}
+
+.is-badge:hover {
+     transform: translateY(-2px);
+     cursor: pointer;
 }
