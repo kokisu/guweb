@@ -173,13 +173,15 @@ def get_user_badges(uid: int, privs: int):
     if Privileges.Normal not in user_priv:
         group_list.append(["ban", "Restricted", "black"])
     else:
-        if int(uid) in [3, 4]:
+        if uid in [3, 4]:
             group_list.append(["crown" ,"Owner", "#DE9DFF"])
         if Privileges.Admin in user_priv:
             group_list.append(["star", "Admin", "#FEFF9D"])
-        if int(uid) in [3]:
-            group_list.append(["transgender", "  Trans" , "#F5A9B8"])  
-        if int(uid) in [8]:
+        if uid in [3]:
+            group_list.append(["transgender", "  Trans" , "#F5A9B8"])
+        if uid in [330]:
+            group_list.append(["heart", "Wife", "#FFFFFF"])
+        if uid in [8]:
             group_list.append(["bug", "  Official Test Account" , "#b8fffa"])
         if Privileges.Mod in user_priv:
             group_list.append(["hammer", "GMT", "#9DFFAA"])
