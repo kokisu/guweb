@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+{% block title %} {{ bmap['title'] }}'s Leaderboard {% endblock %}
+
+{% block header %}
+<meta name="description" content="Beatmap leaderboard for {{ bmap['artist'] }} - {{ bmap['title'] }} [{{ bmap['version'] }}] ({{ bmap['creator'] }})">
+
+<meta itemprop="name" content="{{ bmap['artist'] }} - {{ bmap['title'] }} [{{ bmap['version'] }}] Leaderboard - kokisu">
+<meta itemprop="description" content="Beatmap leaderboard for {{ bmap['artist'] }} - {{ bmap['title'] }} [{{ bmap['version'] }}] ({{ bmap['creator'] }})">
+<meta itemprop="image" content="https://assets.ppy.sh/beatmaps/{{ bmap['set_id'] }}/covers/raw.jpg">
+
+<meta property="og:url" content="https://{{ domain() }}/b/{{ bmap['id'] }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ bmap['artist'] }} - {{ bmap['title'] }} [{{ bmap['version'] }}] Leaderboard - kokisu">
+<meta property="og:description" content="Beatmap leaderboard for {{ bmap['artist'] }} - {{ bmap['title'] }} [{{ bmap['version'] }}] ({{ bmap['creator'] }})">
+<meta property="og:image" content="https://assets.ppy.sh/beatmaps/{{ bmap['set_id'] }}/covers/raw.jpg">
+
+<meta name="twitter:title" content="{{ bmap['artist'] }} - {{ bmap['title'] }} [{{ bmap['version'] }}] Leaderboard - kokisu">
+<meta name="twitter:description" content="Beatmap leaderboard for {{ bmap['artist'] }} - {{ bmap['title'] }} [{{ bmap['version'] }}] ({{ bmap['creator'] }})" >
+<meta name="twitter:image" content="https://assets.ppy.sh/beatmaps/{{ bmap['set_id'] }}/covers/raw.jpg">
+<meta name="theme-color" content="#3F73A6">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/4.0.2/timeago.min.js"></script>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script src="/static/js/asserts/vue.js"></script>
+<script src="/static/js/asserts/vue-axios.js"></script>
+<audio id="BeatmapAudio" preload="auto"></audio>
+<script>
+    var domain = "{{ domain() }}";
+    var mode = "{{ mode }}";
+    var mods = "{{ mods }}";
+    var dnamE = "{{ bmap['version'] }}"
+    var bid = "{{ bmap['id'] }}";
+    var setid = "{{ bmap['set_id'] }}";
+    var myAudio = document.getElementById("BeatmapAudio");
+	var isPlaying = false;
+	myAudio.volume = 0.15; 
+    //dont laugh at this ok.
+    myAudio.src = "https://catboy.best/preview/audio/{{ bmap['id'] }}";
+    myAudio.onerror = function() {
+        myAudio.src = "https://b.ppy.sh/preview/{{ bmap['set_id'] }}.mp3";
+    };
+    function togglePlay() {
+				if (isPlaying) { 
+                    myAudio.pause() 
+                    document.getElementById("PlayState").innerHTML = '<strong>Preview Song</strong>';
+                    document.getElementById("preview-icon").classList.remove('fa-pause');
+					document.getElementById("preview-icon").classList.add('fa-play');
+				} else {
+					myAudio.play();
+					document.getElementById("PlayState").innerHTML = '<strong>Pause</strong>';
+                    document.getElementById("preview-icon").classList.remove('fa-play');
+					document.getElementById("preview-icon").classList.add('fa-pause');
+				}
+			};
+			myAudio.onplaying = function() {
+				isPlaying = true;
+			};
+			myAudio.onpause = function() {
+				isPlaying = false;
+			};
+            myAudio.addEventListener("ended", function(){
+				myAudio.currentTime = 0;
+				document.getElementById("PlayState").innerHTML = '<strong>Preview Song</strong>';
+                document.getElementById("preview-icon").classList.remove('fa-pause');
+				document.getElementById("preview-icon").classList.add('fa-play');
+			});
+</script>
+
+<link rel="stylesheet" href="/static/css/pages/beatmap.css">
+{% endblock %}
+
+{% block content %}
+<div id="app" style="zoom:1.1;transition: 0.5s ease-in-out;" v-bind:class="(load ? 'load' : '')">
+    <div class="beatmap-banner main-banner" style="height:auto; background-color: hsl(var(--main), 10%, 15%);">
+        <div class="main-selector" style="padding: 5px;">
+            <div class="left">
+                <!--dont laugh at this too ok.-->
+                <div>
+                    <a class="player-flag">
+                      <i :class="getStatusIcon(mapinfo.status)" :style="getStatusIconStyle(mapinfo.status)"></i>
+                      <div class="flag-dropdown" :style="getStatusDpStyle(mapinfo.status)"><% getStatusTxt(mapinfo.status) %></div>
+                    </a>
+                </div>
+                <a class="mode-select" v-bind:class="{ 'active': mode === 'std' }"
+                @click="LoadBeatmap('std', mods, bid, 'mchange')">
+                    <i class="mode-icon mode-osu"></i><span class="modetext"> osu!</span>
+                </a>
+                <a class="mode-select" v-bind:class="{ 'active': mode === 'taiko', 'disabled': mods === 'ap' }"
+                @click="LoadBeatmap('taiko', mods, bid, 'mchange')">  
+                    <i class="mode-icon mode-taiko"></i><span class="modetext"> osu!taiko</span>
+                </a>
+                <a class="mode-select" v-bind:class="{ 'active': mode === 'catch', 'disabled': mods === 'ap' }"
+                @click="LoadBeatmap('catch', mods, bid, 'mchange')">
+                    <i class="mode-icon mode-catch"></i><span class="modetext"> osu!catch</span>
+                </a>
+                <a class="mode-select" v-bind:class="{ 'active': mode === 'mania', 'disabled': mods === 'ap' || mods === 'rx' }"
+                @click="LoadBeatmap('mania', mods, bid, 'mchange')">
+                    <i class="mode-icon mode-mania"></i><span class="modetext"> osu!mania</span>
+                </a>
+            </div>
+            <div class="right">
+                <a class="mods-select" v-bind:class=" { 'active': mods === 'vn' }"
+                @click="LoadBeatmap(mode, 'vn', bid, 'mchange')">Vanilla</a>
+                <a class="mods-select" v-bind:class=" { 'active': mods === 'rx', 'disabled': mode === 'mania' }"
+                @click="LoadBeatmap(mode, 'rx', bid, 'mchange')">Relax</a>
+                <a class="mods-select" v-bind:class=" { 'active': mods === 'ap', 'disabled': mode === 'taiko' || mode === 'catch' || mode === 'mania'  }"
+                @click="LoadBeatmap(mode, 'ap', bid, 'mchange')">Autopilot</a>
+            </div>
+        </div>
+        <div style="width: 100%;" style="background-color: hsl(var(--main), 10%, 15%);">
+        <div class="diff-selector" style="height:auto;">
+            <div class="left" style="margin:4.5px;">
+            {% for _bmap in bmapset %}
+                <a class="mode-select" @click="LoadBeatmap('{{ _bmap['modetext'] }}', mods, {{ _bmap['id'] }}, 'diff');" v-bind:class="{'active': mapinfo.id === {{ _bmap['id'] }}}" title="{{ _bmap['version'] }} ({{ _bmap['diff'] }}★) ({{ _bmap['status'] }})" style="margin-left: 3px; color: {{ _bmap['diff_color'] }};">
+                  <i class="{{ _bmap['icon'] }}" style="font-size: 19px; margin-right: 0.5px; color: {{ _bmap['diff_color'] }}!important;"></i>
+                  <span :style="mapinfo.id !== {{ _bmap['id'] }} ? 'display: none; padding: 4px; font-size:14px;' : 'padding: 4px; font-size:14px;'">{{ _bmap['version'] }}</span>
+                </a>
+            {% endfor %}
+            </div>
+          </div>
+        </div>
+    <div class="banner-bg" style="background-image: url('https://assets.ppy.sh/beatmaps/{{ bmap['set_id'] }}/covers/cover@2x.jpg');background-position: center;height:197.5px;"></div>
+    
+    </div>
+    <div class="main-block">
+        <div class="map-name">
+            <span style="font-size: 25px; font-weight: 700;">{{ bmap['title'] }}</span> <span id="diffN" style="font-size: 19; font-weight: 600;">[<% mapinfo.version || "{{ bmap['version'] }}" %>]</span>
+            <span style="font-size: 16px;">{{ bmap['artist'] }}</span>
+            <span style="font-size: 16px;">Mapped by <strong style="color:hsl(var(--main),70%,70%);"><a href="https://osu.ppy.sh/u/{{ bmap['creator'] }}">{{ bmap['creator'] }}</a></strong></span>
+            
+            <span style="font-size: 16px;">{{ status }} {% if isbancho and bmapdate != None %}<% moment("{{ bmapdate }}").local().fromNow() %>{% endif %} on <strong style="color:hsl(var(--main),70%,70%);"><a>{% if is_bancho %} Bancho{% else %} Kokisu{% endif %}</a></strong></span>
+        </div>
+        <div class="map-name" style="margin-top: -30;">  
+            <span style="font-size: 16px;"><i class="fa-solid icon fa-star" style="margin-right: 4;"></i><span id="diffrating"><% Number(mapinfo.diff).toFixed(2) || "{{ bmap['diff'] }}" %></span>
+            <i class="fa-solid icon fa-clock" style="margin-right: 4; margin-left:10;"></i><% secondsToDhm(mapinfo.total_length) || "{{ bmap['total_length'] }}" %>
+            <i class="fa-solid icon fa-play-circle" style="margin-right: 4; margin-left:10;"></i><% mapinfo.plays || '0' %></span>
+        </div>
+        <div class="temp-buttons">
+            <div class="buttons">
+                <a class="button is-primary" href="https://osu.direct/d/{{ bmap['set_id'] }}">
+                    <i class="fa-solid fa-download" style="margin-right:7px"></i><strong>Download Map</strong>
+                </a>
+                <a class="button is-primary" href="osu://dl/{{ bmap['set_id'] }}">
+                    <i class="fa-solid fa-star" style="margin-right:7px"></i><strong>osu!direct</strong>
+                </a>
+                <a class="button is-primary" v-bind:href="'https://osu.ppy.sh/b/' + mapinfo.id">
+                    <i class="fa-solid fa-arrow-up-right-from-square" style="margin-right:7px"></i><strong>Open on osu.ppy.sh</strong>
+                </a>
+                <a class="button is-primary" onclick="togglePlay()">
+                    <i class="fa-solid fa-play icon" id="preview-icon" style="margin-top:6;"></i><span id="PlayState"><strong>Preview Song</strong></span>
+                </a>
+            </div>
+        </div>
+        <div class="leaderboard-main-bg table-responsive">
+            <div v-if="boards.length > 0">
+                <table class="leaderboard-table table-responsive">
+                    <thead>
+                        <tr>
+                            <th class="t-heading"> Rank </th>
+                            <th class="t-heading t-heading--score"> Grade </th>
+                            <th class="t-heading table--selected"> PP </th>
+                            <th class="t-heading"> Accuracy </th>
+                            <th class="t-heading t-heading--main"> Player </th>
+                            <th class="t-heading"> Max Combo (<% mapinfo.max_combo %>x) </th>
+                            <th class="t-heading"> 300 </th>
+                            <th class="t-heading"> 100 </th>
+                            <th class="t-heading"> 50 </th>
+                            <th class="t-heading"> Miss </th>
+                            <th class="t-heading"> Score </th>
+                            <th class="t-heading t-heading--time"> Time </th>
+                            <th class="t-heading t-heading--mods"> Mods </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(user, index) in boards" class="leaderboard-column">
+                            <td class="column-player-rank">#<% index + 1 %>
+                            </td>
+                            <td class="column-player-score-rank">
+                                <div class="rank-single">
+                                    <a class="player-grade" :style="'background-image: url(/static/images/ranks/' + user.grade + '_rank.png)'"></a>
+                                </div>
+                            </td>
+                            <td>
+                                <% addCommas(user.pp.toFixed()) %>pp
+                            </td>
+                            <td>
+                                <% user.acc.toFixed(2) %>%
+                            </td>
+                            <td class="column-player-name text-left">
+                                <a :title="flags[user.country.toUpperCase()]"
+                                    :style="'background-image: url(/static/images/flags/' + user.country.toUpperCase() + '.png)'"
+                                    class="player-flag">
+                                    <div class="flag-dropdown">
+                                        <% flags[user.country.toUpperCase()] %>
+                                    </div>
+                                </a>
+                                <a :style="'background-image: url(https://a.{{ domain() }}/' + user.userid + ')'"
+                                    class="player-mini-image"
+                                ></a>
+                                {% if 'authenticated' in session %}
+                                <a v-if="user.clan_tag" :style="{ color: {{ session.user_data['id'] }} === user.userid ? '#82EBED' : ( {{ session.user_data['id'] }} !== user.userid ? '#ffffff' : '') }" :href="'/u/'+user.userid+'?mode='+mode+'&mods='+mods">
+                                    [<% user.clan_tag %>]
+                                </a>
+                                <a :style="{ color: {{ session.user_data['id'] }} === user.userid ? '#82EBED' : ( {{ session.user_data['id'] }} !== user.userid ? '#ffffff' : '') }"
+                                :href="'/u/' + user.userid + '?mode=' + mode + '&mods=' + mods">
+                                    <% user.player_name %>
+                                </a>
+                                {% else %}
+                                <a v-if="user.clan_tag" :href="'/u/'+user.userid+'?mode='+mode+'&mods='+mods">
+                                    [<% user.clan_tag %>]
+                                </a>
+                                <a :href="'/u/'+user.userid+'?mode='+mode+'&mods='+mods">
+                                    <% user.player_name %>
+                                </a>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <% addCommas(user.max_combo) %>x
+                            </td>
+                            <td>
+                                <% addCommas(user.n300) %>
+                            </td>
+                            <td>
+                                <% addCommas(user.n100) %>
+                            </td>
+                            <td>
+                                <% addCommas(user.n50) %>
+                            </td>
+                            <td>
+                                <% addCommas(user.nmiss) %>
+                            </td>
+                            <td>
+                                <% scoreFormat(user.score) %>
+                            </td>
+                            <td class="user-flag">
+                                <% moment(user.play_time + '+02:00').local().fromNow() %>
+                                <div class="flag-dropdown" style="margin-top: -43.5px;margin-left: -10px;"><% user.play_time.slice(0, 10) %></div>
+                            </td>
+                            <td>
+                                <% getScoreMods(user.mods) %>
+                            </td>
+                        </td>
+                        <td class="t-column t-column--dimmed" style="padding:5px;">
+                          <a v-bind:href="'https://{{ domain() }}/scores/' + user.id"><i class="fa fa-eye" style="margin:10;"></i></a>
+                        </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div v-else>
+                <div class="text-center" style="margin:30;">
+                    There are no players to display!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/js/asserts/vue-flags.js"></script>
+<script src="/static/js/pages/beatmap.js"></script>
+{% endblock %}

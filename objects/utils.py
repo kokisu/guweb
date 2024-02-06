@@ -260,6 +260,8 @@ def get_mode_icon(id: int):
     elif id in [3]:
         mode = "mode-icon mode-mania"
 
+    return mode
+
 def get_color_formatted_grade(a):
     color = "#fff"
     if a in ["A"]:

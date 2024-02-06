@@ -452,6 +452,60 @@ async def login_post():
 
     return await flash('success', f'Hey, welcome back {username}!', 'home')
 
+_status_str_dict = {
+    3: "Approved",
+    4: "Qualified",
+    2: "Ranked",
+    5: "Loved",
+    0: "Pending",
+    -1: "Unranked",
+    -2: "Graveyarded"
+}
+
+_mode_str_dict = {
+    0: 'std',
+    1: 'taiko',
+    2: 'catch',
+    3: 'mania'
+}
+
+@frontend.route('/b/<bid>')
+@frontend.route('/b/<bid>')
+@frontend.route('/b/<bid>')
+@frontend.route('/beatmaps/<bid>')
+@frontend.route('/beatmaps/<bid>')
+@frontend.route('/beatmaps/<bid>')
+async def beatmap(bid):
+    mode = request.args.get('mode', 'std', type=str) # 1. key 2. default value
+    mods = request.args.get('mods', 'vn', type=str)
+    
+    # Make sure mode, mods and id are valid, otherwise 404 page
+    if (
+        bid == None or not bid.isdigit() or
+        mode not in VALID_MODES or mods not in VALID_MODS or
+        mode == "mania" and mods == "rx" or mods == "ap" and mode != "std"):
+        return (await render_template('404.html'), 404)
+
+    # get the beatmap by id
+    bmap = await glob.db.fetch('SELECT * FROM maps WHERE id = %s', [bid])
+    if not bmap:
+        return (await render_template('404.html'), 404)
+
+    # get all other difficulties
+    bmapset = await glob.db.fetchall('SELECT diff, status, version, id, mode FROM maps WHERE set_id = %s ORDER BY diff', [bmap['set_id']])
+
+    # sanitize the values
+    for _bmap in bmapset:
+        _bmap['diff'] = round(_bmap['diff'], 2)
+        _bmap['modetext'] = _mode_str_dict[_bmap['mode']]
+        _bmap['diff_color'] = utils.get_difficulty_colour_spectrum(_bmap['diff'])
+        _bmap['icon'] = utils.get_mode_icon(_bmap['mode'])
+        _bmap['status'] = _status_str_dict[_bmap['status']]
+
+    status = _status_str_dict[bmap['status']]
+    is_bancho = int(bmap['frozen']) == 0
+    return await render_template('beatmap.html', bmap=bmap, bmapset=bmapset, status=status, mode=mode, mods=mods, is_bancho=is_bancho)
+
 @frontend.route('/scores/<id>')
 async def score_select(id):
     mods_mode_strs = {
