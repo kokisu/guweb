@@ -9,12 +9,14 @@
 <meta property="og:url" content="https://{{ domain() }}/leaderboard/std/pp/vn">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Leaderboards - kokisu">
-<meta property="og:description" content="Leaderboards on kokisu - An osu! private server dedicated to sst3w's cat Koki!">
+<meta property="og:description"
+    content="Leaderboards on kokisu - An osu! private server dedicated to sst3w's cat Koki!">
 <meta property="og:image" content="https://{{ domain() }}/static/favicon/android-chrome-256x256.png">
 
 <!-- Twitter Meta Tags -->
 <meta name="twitter:title" content="Leaderboards - kokisu">
-<meta name="twitter:description" content="Leaderboards on kokisu - An osu! private server dedicated to sst3w's cat Koki!">
+<meta name="twitter:description"
+    content="Leaderboards on kokisu - An osu! private server dedicated to sst3w's cat Koki!">
 <meta name="twitter:image" content="https://{{ domain() }}/static/favicon/android-chrome-256x256.png">
 
 {% extends 'base.html' %}
@@ -39,19 +41,20 @@
     <div class="leaderboard-banner main-banner">
         <div class="main-selector">
             <a class="mode-select" v-bind:class="{ 'active': mode === 'std' }"
-            @click="LoadLeaderboard(sort, 'std', mods)">
+                @click="LoadLeaderboard(sort, 'std', mods)">
                 <i class="mode-icon mode-osu"></i><span class="modetext"> osu!</span>
             </a>
             <a class="mode-select" v-bind:class="{ 'active': mode === 'taiko', 'disabled': mods === 'ap' }"
-            @click="LoadLeaderboard(sort, 'taiko', mods)">
+                @click="LoadLeaderboard(sort, 'taiko', mods)">
                 <i class="mode-icon mode-taiko"></i><span class="modetext"> osu!taiko</span>
             </a>
             <a class="mode-select" v-bind:class="{ 'active': mode === 'catch', 'disabled': mods === 'ap' }"
-            @click="LoadLeaderboard(sort, 'catch', mods)">
+                @click="LoadLeaderboard(sort, 'catch', mods)">
                 <i class="mode-icon mode-catch"></i><span class="modetext"> osu!catch</span>
             </a>
-            <a class="mode-select" v-bind:class="{ 'active': mode === 'mania', 'disabled': mods === 'ap' || mods === 'rx' }"
-            @click="LoadLeaderboard(sort, 'mania', mods)">
+            <a class="mode-select"
+                v-bind:class="{ 'active': mode === 'mania', 'disabled': mods === 'ap' || mods === 'rx' }"
+                @click="LoadLeaderboard(sort, 'mania', mods)">
                 <i class="mode-icon mode-mania"></i><span class="modetext"> osu!mania</span>
             </a>
         </div>
@@ -59,17 +62,19 @@
         <div class="selector">
             <div class="left">
                 <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'pp' }"
-                @click="LoadLeaderboard('pp', mode, mods, '')">PP</a>
+                    @click="LoadLeaderboard('pp', mode, mods, '')">PP</a>
                 <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'rscore' }"
-                @click="LoadLeaderboard('rscore', mode, mods, '')">Score</a>
+                    @click="LoadLeaderboard('rscore', mode, mods, '')">Score</a>
             </div>
             <div class="right">
                 <a class="simple-banner-switch" v-bind:class=" { 'active': mods === 'vn' }"
-                @click="LoadLeaderboard(sort, mode, 'vn')">Vanilla</a>
-                <a class="simple-banner-switch" v-bind:class=" { 'active': mods === 'rx', 'disabled': mode === 'mania' }"
-                @click="LoadLeaderboard(sort, mode, 'rx')">Relax</a>
-                <a class="simple-banner-switch" v-bind:class=" { 'active': mods === 'ap', 'disabled': mode === 'taiko' || mode === 'catch' || mode === 'mania'  }"
-                @click="LoadLeaderboard(sort, mode, 'ap')">Autopilot</a>
+                    @click="LoadLeaderboard(sort, mode, 'vn')">Vanilla</a>
+                <a class="simple-banner-switch"
+                    v-bind:class=" { 'active': mods === 'rx', 'disabled': mode === 'mania' }"
+                    @click="LoadLeaderboard(sort, mode, 'rx')">Relax</a>
+                <a class="simple-banner-switch"
+                    v-bind:class=" { 'active': mods === 'ap', 'disabled': mode === 'taiko' || mode === 'catch' || mode === 'mania'  }"
+                    @click="LoadLeaderboard(sort, mode, 'ap')">Autopilot</a>
             </div>
         </div>
     </div>
@@ -102,6 +107,7 @@
                                         <% flags[user.country.toUpperCase()] %>
                                     </div>
                                 </a>
+                                <a class="player-avatar" :style="'background-image: url(https://a.kokisu.moe/' + user.player_id + ')'"></a>
                                 <a :href="'/u/'+user.player_id+'?mode='+mode+'&mods='+mods">
                                     <% user.name %>
                                 </a>
