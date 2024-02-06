@@ -6,9 +6,8 @@ function handleFocus() {
 }
 
 function handleBlur() {
-  if ($('#search-results').contains(document.activeElement()))
-    return;
-  
+  return;
+
   $('#search-txt').css('min-width', '0vw');
   $('#search-results').fadeOut();
 }
