@@ -26,6 +26,10 @@ version = Version(1, 3, 0)
 # we recommend using a long randomly generated ascii string.
 app.secret_key = glob.config.secret_key
 
+@app.before_request
+def make_session_permanent():
+    session.permanent = True
+
 @app.before_serving
 async def mysql_conn() -> None:
     glob.db = AsyncSQLPool()
