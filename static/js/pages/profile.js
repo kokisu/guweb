@@ -25,6 +25,14 @@ new Vue({
                             limit: 5,
                             full: true
                         }
+                    },
+                    first: {
+                        out: [],
+                        load: true,
+                        more: {
+                            limit: 5,
+                            full: true
+                        }
                     }
                 },
                 maps: {
@@ -57,6 +65,7 @@ new Vue({
             this.LoadMostBeatmaps();
             this.LoadScores('best');
             this.LoadScores('recent');
+            this.LoadScores('first');
         },
         LoadProfileData() {
             this.$set(this.data.stats, 'load', true);
@@ -140,6 +149,9 @@ new Vue({
             } else if (which == 'recentscore') {
                 this.data.scores.recent.more.limit += 5;
                 this.LoadScores('recent');
+            } else if (which == 'firstscore') {
+                this.data.scores.recent.more.limit += 5;
+                this.LoadScores('first');
             } else if (which == 'mostplay') {
                 this.data.maps.most.more.limit += 4;
                 this.LoadMostBeatmaps();
