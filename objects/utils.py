@@ -165,7 +165,7 @@ def crop_image(image: 'Image') -> 'Image':
 
     return image
 
-def userbadges(uid: int, privs: int):
+def get_user_badges(uid: int, privs: int):
     group_list = []
     user_priv = Privileges(int(privs))
     if Privileges.Dangerous in user_priv:
@@ -195,3 +195,112 @@ def userbadges(uid: int, privs: int):
             group_list.append(["heart", "Contributor", "#FF66AA"])
 
     return group_list
+
+def get_difficulty_colour_spectrum(diff_value):
+    domain = [0.1, 1.25, 2, 2.5, 3.3, 4.2, 4.9, 5.8, 6.7, 7.7, 9]
+    range_ = ['#4290FB', '#4FC0FF', '#4FFFD5', '#7CFF4F', '#F6F05C', '#FF8068', '#FF4E6F', '#C645B8', '#6563DE', '#18158E', '#000000']
+
+    if diff_value > 9:
+        return '#000000'
+    
+    # Find the index where diff_value fits in the domain
+    index = 0
+    while index < len(domain) - 1 and diff_value >= domain[index]:
+        index += 1
+
+    # Interpolate the color value based on the index
+    if index == 0:
+        return range_[0]
+    elif index == len(domain):
+        return range_[-1]
+    else:
+        prev_value = domain[index - 1]
+        next_value = domain[index]
+        prev_color = range_[index - 1]
+        next_color = range_[index]
+        proportion = (diff_value - prev_value) / (next_value - prev_value)
+
+        red = int(prev_color[1:3], 16) + int((int(next_color[1:3], 16) - int(prev_color[1:3], 16)) * proportion)
+        green = int(prev_color[3:5], 16) + int((int(next_color[3:5], 16) - int(prev_color[3:5], 16)) * proportion)
+        blue = int(prev_color[5:7], 16) + int((int(next_color[5:7], 16) - int(prev_color[5:7], 16)) * proportion)
+
+        return f"#{red:02X}{green:02X}{blue:02X}"
+
+BANNERS_PATH = Path.cwd() / '.data/banners'
+BACKGROUND_PATH = Path.cwd() / '.data/backgrounds'
+def has_profile_customizations(user_id: int = 0) -> dict[str, bool]:
+    # check for custom banner image file
+    for ext in ('jpg', 'jpeg', 'png', 'gif'):
+        path = BANNERS_PATH / f'{user_id}.{ext}'
+        if has_custom_banner := path.exists():
+            break
+    else:
+        has_custom_banner = False
+
+    # check for custom background image file
+    for ext in ('jpg', 'jpeg', 'png', 'gif'):
+        path = BACKGROUND_PATH / f'{user_id}.{ext}'
+        if has_custom_background := path.exists():
+            break
+    else:
+        has_custom_background = False
+
+    return {
+        'banner' : has_custom_banner,
+        'background': has_custom_background
+    }
+
+def get_mode_icon(id: int):
+    if id in [0,4,8]:
+        mode = "mode-icon mode-osu"
+    elif id in [1,5]:
+        mode = "mode-icon mode-taiko"
+    elif id in [2,6]:
+        mode = "mode-icon mode-catch"
+    elif id in [3]:
+        mode = "mode-icon mode-mania"
+
+def get_color_formatted_grade(a):
+    color = "#fff"
+    if a in ["A"]:
+        color = "#28a745"
+    elif a in ["B"]:
+        color = "#3d97ff"
+    elif a in ["C"]:
+        color = "#ff56da"
+    elif a in ["SH"]:
+        a = "S"
+        color = "#cde7e7"
+    elif a in ["XH"]:
+        a = "SS"
+        color = "#cde7e7"
+    elif a in ["D", "F"]:
+         color = "#ff6262"
+    elif a in ["S"]:
+         color = "#fc2"
+    elif a in ["X"]:
+        a = "SS"
+        color = "#fc2"
+    
+    return {
+        'letter' : a,
+        'color': color
+    }
+
+mod_dict = {
+    1: 'NF', 2: 'EZ', 4: 'TD', 8: 'HD', 16: 'HR', 32: 'SD', 64: 'DT', 128: 'RX',
+    256: 'HT', 512: 'NC', 1024: 'FL', 2048: 'AP', 4096: 'SO', 8192: 'AP', 16384: 'PF',
+    32768: '4K', 65536: '5K', 131072: '6K', 262144: '7K', 524288: '8K', 1015808: '',
+    1048576: 'FD', 2097152: 'RD', 4194304: 'CN', 16777216: '9K', 33554432: '10K',
+    67108864: '1K', 134217728: '3K', 268435456: '2K', 536870912: 'V2'
+}
+
+def get_mods(mods_int):
+    mods = []
+
+    for mod_value, mod_str in mod_dict.items():
+        if mods_int & mod_value:
+            mods.append(mod_str)
+
+    mods_str = ''.join(mods).replace("RXNC", "NCRX").replace("APNC", "NCAP").replace("HDHRNC", "HDNCHR").replace("NFNC", "NCNF").replace("DTNC", "NC")
+    return f"+{mods_str}" if mods else ""

@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% block title %} Score by {{ userinfo['name'] }} on {{ map['title'] }} [{{ map['version'] }}]{% endblock %}
+
+{% block header %}
+  <!-- HTML Meta Tags -->
+<meta name="description" content="Score by {{ userinfo['name'] }} on {{ map['title'] }} [{{ map['version'] }}] - {{ pp }}pp - {{ score['max_combo']}}x/{{ map['max_combo'] }}x - {{ scoremodegame }} {% if score['mods'] != 0 %}- With {{ score['mods'] }} {% endif %} - {{ score['grade']['letter'] }} rank">
+
+  <!-- Google / Search Engine Tags -->
+<meta itemprop="name" content="Score by {{ userinfo['name'] }} on {{ map['title'] }} [{{ map['version'] }}] - kokisu">
+<meta itemprop="description" content="Score by {{ userinfo['name'] }} on {{ map['title'] }} [{{ map['version'] }}] - {{ pp }}pp - {{ score['max_combo']}}x/{{ map['max_combo'] }}x - {{ scoremodegame }} {% if score['mods'] != 0 %}- With {{ score['mods'] }} {% endif %} - {{ score['grade']['letter'] }} rank">
+<meta itemprop="image" content="https://assets.ppy.sh/beatmaps/{{ map['set_id'] }}/covers/raw.jpg">
+
+<!-- Facebook Meta Tags -->
+<meta property="og:url" content="https://{{ domain() }}/scores/{{ score['id'] }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Score by {{ userinfo['name'] }} on {{ map['title'] }} [{{ map['version'] }}] - kokisu">
+<meta property="og:description" content="Score by {{ userinfo['name'] }} on {{ map['title'] }} [{{ map['version'] }}] - {{ pp }}pp - {{ score['max_combo']}}x/{{ map['max_combo'] }}x - {{ scoremodegame }} {% if score['mods'] != 0 %}- With {{ score['mods'] }} {% endif %} - {{ score['grade']['letter'] }} rank">
+<meta property="og:image" content="https://assets.ppy.sh/beatmaps/{{ map['set_id'] }}/covers/raw.jpg">
+
+<!-- Twitter Meta Tags -->
+<meta name="twitter:title" content="Score by {{ userinfo['name'] }} on {{ map['title'] }} [{{ map['version'] }}] - kokisu">
+<meta name="twitter:description" content="Score by {{ userinfo['name'] }} on {{ map['title'] }} [{{ map['version'] }}] - {{ pp }}pp - {{ score['max_combo']}}x/{{ map['max_combo'] }}x - {{ scoremodegame }} {% if score['mods'] != 0 %}- With {{ score['mods'] }} {% endif %} - {{ score['grade']['letter'] }} rank" >
+<meta name="twitter:image" content="https://assets.ppy.sh/beatmaps/{{ map['set_id'] }}/covers/raw.jpg">
+
+<meta name="theme-color" content="{{ score['grade']['color'] }}">
+
+<script src="/static/js/asserts/vue.js"></script>
+<script src="/static/js/asserts/vue-axios.js"></script>
+<link rel="stylesheet" href="/static/css/pages/score.css">
+
+{% endblock %}
+
+{% block content %}
+<div id="app" :class="(load ? 'load' : '')">
+    <div class="main-banner" style="background-color: hsl(var(--main), 10%, 15%);">
+        <div class="header-text">
+            {% if map['status'] == -1 %}
+            <i class="fas fa-question" style="color: rgb(255, 255, 255); font-size: 22; margin: 0px 5px 0px 10px;"></i>
+            {% elif map['status'] == 0 %}
+            <i class="fas fa-question" style="color: rgb(255, 255, 255); font-size: 22; margin: 0px 5px 0px 10px;"></i>
+            {% elif map['status'] == 2 %}
+            <i style="color: rgb(0, 128, 255); font-size: 22; margin: 0px 5px 0px 10px;" class="fas fa-angle-double-up"></i>
+            {% elif map['status'] == 3 %}
+            <i class="fas fa-check" style="color: rgb(0, 204, 0); font-size: 22; margin: 0px 5px 0px 10px;"></i>
+            {% elif map['status'] == 4 %}
+            <i class="fas fa-check" style="color: rgb(0, 204, 0); font-size: 22; margin: 0px 5px 0px 10px;"></i>
+            {% elif map['status'] == 5 %}
+            <i class="fas fa-heart" style="color: rgb(255, 105, 180); font-size: 1.2em; margin: 0px 5px 0px 10px;"></i>
+            {% endif %}
+            <a href="https://{{ domain() }}/b/{{ map['id'] }}/{{ mode }}/{{ mods }}" style="font-size: 19px; font-weight: 450;">{{ map['title'] }}</a> by <span style="font-size: 16px; font-weight: 450;">{{ map['artist'] }}</span><br> 
+            <i class="{{ score['mode_icon'] }}" style="font-size: 22; color: {{ map['colordiff'] }}!important;"></i>       
+            <span style="background-color: {{ map['colordiff'] }}; border-radius: 99999px; {% if map['diff'] < 6.6 %} color: black;{% endif %} {% if map['diff'] >= 6.6 %} color: #ffd966!important;{% endif %} font-weight: 600; padding: 2px 8px; font-size: 12px; margin-right:5.5px"><i class="fas fa-star fa-xs" style="{% if map['diff'] < 6.6 %} color: black; {% else %}color: #ffd966!important;{% endif %}"></i>  {{ map['diff'] }}</span>
+            <span style="font-weight: 450; font-size: 17px;">{{ map['version'] }}</span></span> beatmap by <a href="https://osu.ppy.sh/u/{{ map['creator'] }}" style="font-size: 16px; font-weight: 450;">{{ map['creator'] }}</a>
+        </div>
+    </div>
+    <div class="score-banner" style="background-image: url(&#39;https://assets.ppy.sh/beatmaps/{{ map['set_id'] }}/covers/cover.jpg&#39;);">
+        <div class="map-rank rank-grade">
+         <span style="color: {{ score['grade']['color'] }};">{{ score['grade']['letter'] }}</span>
+        </div>
+        <div class="score-banner-score">
+            {{ score['score'] }}
+        </div>
+        <div class="score-banner-scoreinfo">
+            Played by <strong>{{ userinfo['name'] }}</strong>
+            Submitted on <strong title="{{ score['play_time'] }}">{{ score['ptformatted'] }}</strong>
+            {% if score['grade']['letter'] == 'F' %}
+            Map completion <strong>{{ score['mapprogress'] }}</strong>
+            {% endif %}
+            {% if score['mods'] != 0 %}
+            With <strong>{{ score['mods'] }}</strong>
+            {% endif %}
+            Gamemode <strong>{{ mods_mode_str }}</strong>
+        </div>
+        <div class="score-banner-link-buttons">
+            <button type="button" class="link-button" {% if score['grade']['letter'] == "F" %}style="opacity:0.6;pointer-events:none;"{% endif %} {% if score['grade']['letter'] != "F" %}onclick=" window.open('https://api.{{ domain() }}/v1/get_replay?id={{ score['id'] }}','_blank')"{% endif %}>
+                Download Replay
+            </button>
+            
+            <button type="button" class="link-button" onclick="window.open('https://{{ domain() }}/b/{{ map['id'] }}/{{ mode }}/{{ mods }}','_blank')">
+                Open map
+            </button>
+        </div>
+    </div>
+    <div class="main-block">
+        <div class="user-card" style="background-image: url(https://{{ domain() }}/banners/{{ score['userid'] }}); cursor: pointer;" onclick="window.location='https://{{ domain() }}/u/{{ score['userid'] }}'">
+            <div class="user-card-avatar">
+                <img src="https://a.{{ domain() }}/{{ score['userid'] }}" class="user-card-avatar-image" onError="this.src='/static/images/avatar_notwork.png';">
+            </div>
+            <div class="user-card-username">
+                <img src="/static/images/flags/{{ userinfo['country']|upper }}.png" class="profile-flag">
+                {{ userinfo['name'] }}
+            </div>
+            <div class="user-card-badges">
+               <!-- x -->
+            </div>
+     </div>
+        <div class="score-information">
+            
+            <style>
+                .score-information-block1 {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+                    grid-template-rows: 1fr 1fr;
+                    gap: 5px 5px;
+                    grid-auto-flow: row;
+                    grid-template-areas:
+                      "acc max-combo pp"
+                      "n300 n50 nmiss";
+                    max-height: 150px !important;
+                    height: 150px;
+                    width: 300px;
+                  }
+
+                  .acc { grid-area: acc; }
+
+                  .max-combo { grid-area: max-combo; }
+
+                  .pp { grid-area: pp; }
+
+                  .n300 { grid-area: n300; }
+
+                  .n100 { grid-area: n50; }
+
+                  .nmiss { grid-area: nmiss; }
+
+            </style>
+            <div class="score-information-block1">
+                <div class="acc">
+                    <div class="stat-header">
+                        ACCURACY
+                    </div>
+                    <div class="stat-value">
+                        {{ score['acc'] }}%
+                    </div>
+                </div>
+                <div class="max-combo">
+                    <div class="stat-header">
+                        COMBO
+                    </div>
+                    {% if score['max_combo'] >= map['max_combo'] %}
+                    <div class="stat-value" style="color: #b3ff66 !important;">
+                        {{ score['max_combo'] }}x/{{ map['max_combo'] }}x
+                    </div>
+                    {% else %}
+                    <div class="stat-value">
+                        {{ score['max_combo']}}x/{{ map['max_combo'] }}x
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="pp">
+                    <div class="stat-header">
+                        pp
+                    </div>
+                    <div class="stat-value">
+                        {{ score['pp'] }}
+                    </div>
+                </div>
+                <div class="n300">
+                    <div class="stat-header">
+                        300
+                    </div>
+                    <div class="stat-value">
+                        {{ score['n300'] }}
+                    </div>
+                </div>
+                <div class="n100">
+                    <div class="stat-header">
+                        100
+                    </div>
+                    <div class="stat-value">
+                        {{ score['n100'] }}
+                    </div>
+                </div>
+                <div class="nmiss">
+                    <div class="stat-header">
+                        MISS
+                    </div>
+                    <div class="stat-value">
+                        {{ score['nmiss'] }}
+                    </div>
+                </div>
+              </div> 
+        </div>
+    </div>
+</div>
+{% if userinfo['customization']['background'] == True %}
+<style>
+        body {
+            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 10%, 10%)), url("/backgrounds/{{ score['userid'] }}");
+            background-size: cover;
+            background-clip: content-box;
+        }
+    
+</style>
+{% endif %}
+{% endblock %}

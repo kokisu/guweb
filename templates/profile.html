@@ -48,7 +48,7 @@
                     </div>
                     <div class="map-title-block">
                         <div class="map-title">
-                            <a class="beatmap-link" :href="'https://osu.{{ domain() }}/beatmaps/' + map.beatmap.id">
+                            <a class="beatmap-link" :href="'https://{{ domain() }}/scores/' + map.id">
                                 <% map.beatmap.artist %> - <% map.beatmap.title %> [<% map.beatmap.version %>]
                             </a>
                         </div>
