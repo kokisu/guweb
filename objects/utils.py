@@ -179,7 +179,7 @@ def get_user_badges(uid: int, privs: int):
             group_list.append(["star", "Admin", "#FEFF9D"])
         if uid in [3]:
             group_list.append(["transgender", "  Trans" , "#F5A9B8"])
-        if uid in [330]:
+        if uid in [3, 330]:
             group_list.append(["heart", "Wife", "#FFFFFF"])
         if uid in [8]:
             group_list.append(["bug", "  Official Test Account" , "#b8fffa"])
