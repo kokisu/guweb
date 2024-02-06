@@ -9,6 +9,7 @@ import aiohttp
 import orjson
 from quart import Quart
 from quart import render_template
+from quart import session
 
 from cmyui.logging import Ansi
 from cmyui.logging import log
