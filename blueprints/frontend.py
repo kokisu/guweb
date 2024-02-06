@@ -178,10 +178,14 @@ async def settings_avatar_post():
             os.remove(f'{AVATARS_PATH}/{session["user_data"]["id"]}{fx}')
 
     # avatar cropping to 1:1
-    pilavatar = Image.open(avatar.stream)
+    try:
+        pilavatar = Image.open(avatar.stream)
+    except:
+        return await flash('error', 'The specified file could not be parsed as an image.', 'settings/avatar')
+    
+    pilavatar = utils.crop_image(pilavatar)
 
     # avatar change success
-    pilavatar = utils.crop_image(pilavatar)
     pilavatar.save(os.path.join(AVATARS_PATH, f'{session["user_data"]["id"]}{file_extension.lower()}'))
     return await flash('success', 'Your avatar has been successfully changed!', 'settings/avatar')
 
