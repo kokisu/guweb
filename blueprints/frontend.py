@@ -224,7 +224,10 @@ async def settings_custom_post():
             if os.path.isfile(banner_file_with_ext):
                 os.remove(banner_file_with_ext)
 
-        await banner.save(f'{banner_file_no_ext}{file_extension}')
+        try:
+            await banner.save(f'{banner_file_no_ext}{file_extension}')
+        except:
+            return await flash('error', 'The specified file could not be parsed as an image.', 'settings/custom')
 
     if background is not None and background.filename:
         _, file_extension = os.path.splitext(background.filename.lower())
@@ -239,7 +242,10 @@ async def settings_custom_post():
             if os.path.isfile(background_file_with_ext):
                 os.remove(background_file_with_ext)
 
-        await background.save(f'{background_file_no_ext}{file_extension}')
+        try:
+            await background.save(f'{background_file_no_ext}{file_extension}')
+        except:
+            return await flash('error', 'The specified file could not be parsed as an image.', 'settings/custom')
 
     return await flash_with_customizations('success', 'Your customisation has been successfully changed!', 'settings/custom')
 
