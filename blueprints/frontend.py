@@ -186,7 +186,11 @@ async def settings_avatar_post():
     pilavatar = utils.crop_image(pilavatar)
 
     # avatar change success
-    pilavatar.save(os.path.join(AVATARS_PATH, f'{session["user_data"]["id"]}{file_extension.lower()}'))
+    try:
+        pilavatar.save(os.path.join(AVATARS_PATH, f'{session["user_data"]["id"]}{file_extension.lower()}'))
+    except:
+        return await flash('error', 'The specified file could not be parsed as an image.', 'settings/avatar')
+
     return await flash('success', 'Your avatar has been successfully changed!', 'settings/avatar')
 
 @frontend.route('/settings/custom')
