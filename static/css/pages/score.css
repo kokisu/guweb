@@ -185,7 +185,7 @@ a:hover {
 }
 
 .link-button {
-    background-color: mediumpurple;
+    background-color: hsl(var(--main), 50%, 50%);
     font-weight: 500;
     outline: none;
     border-radius: 40px;
@@ -199,7 +199,7 @@ a:hover {
 }
 
 .link-button:hover {
-    background-color: rebeccapurple;
+    background-color: hsl(var(--main), 42%, 42%);
 }
 
 /* Main Block Section */

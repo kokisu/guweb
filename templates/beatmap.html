@@ -199,10 +199,10 @@
                                     class="player-mini-image"
                                 ></a>
                                 {% if 'authenticated' in session %}
-                                <a v-if="user.clan_tag" :style="{ color: {{ session.user_data['id'] }} === user.userid ? '#82EBED' : ( {{ session.user_data['id'] }} !== user.userid ? '#ffffff' : '') }" :href="'/u/'+user.userid+'?mode='+mode+'&mods='+mods">
+                                <a v-if="user.clan_tag" :style="{ color: {{ session.user_data['id'] }} === user.userid ? 'hsl(var(--main), 60%, 78%) !important' : ( {{ session.user_data['id'] }} !== user.userid ? '#ffffff' : '') }" :href="'/u/'+user.userid+'?mode='+mode+'&mods='+mods">
                                     [<% user.clan_tag %>]
                                 </a>
-                                <a :style="{ color: {{ session.user_data['id'] }} === user.userid ? '#82EBED' : ( {{ session.user_data['id'] }} !== user.userid ? '#ffffff' : '') }"
+                                <a :style="{ color: {{ session.user_data['id'] }} === user.userid ? 'hsl(var(--main), 60%, 78%) !important' : ( {{ session.user_data['id'] }} !== user.userid ? '#ffffff' : '') }"
                                 :href="'/u/' + user.userid + '?mode=' + mode + '&mods=' + mods">
                                     <% user.player_name %>
                                 </a>
