@@ -31,7 +31,7 @@
     var mods = "{{ mods }}";
     var sort = "{{ sort }}";
     var domain = "{{ domain() }}";
-    var page = {{ page }};
+    var page = parseInt("{{ page }}");
 </script>
 
 <link rel="stylesheet" href="/static/css/pages/leaderboard.css">
@@ -98,7 +98,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="(user, index) in boards" class="leaderboard-column">
-                            <td class="column-player-rank">#<% (page * 50) + index + 1 %>
+                            <td class="column-player-rank" v-bind:style="(page > 0) ? 'color: #fff !important' : ''">#<% (page * 50) + index + 1 %>
                             </td>
                             <td class="column-player-name text-left">
                                 <a :title="flags[user.country.toUpperCase()]"

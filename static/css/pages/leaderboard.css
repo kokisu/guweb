@@ -85,6 +85,10 @@ tr td {
   color: #fff;
 }
 
+.column-player-rank-no-color {
+  color: #fff !important;
+}
+
 .column-player-name {
   padding: 10px 10px;
   font-weight: 600;

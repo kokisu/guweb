@@ -22,25 +22,17 @@ new Vue({
             this.$set(this, 'mods', mods);
             this.$set(this, 'sort', sort);
         },
-        LoadLeaderboard(sort, mode, mods, action = 0) {
+        LoadLeaderboard(sort, mode, mods, change = 0) {
             if (window.event)
                 window.event.preventDefault();
 
                 if (sort === "score")
                     sort = "rscore";
 
-                let offset = 0;
-                let perPage = 50;
-                if(action === 0) // first page
-                {
-                    last_page = page;
-                    page = 0;
-                }
-                else // +1 or -1 page
-                  page += action;
-                offset = page * perPage;
+                page += change;
+                let offset = page * 50;
 
-                if (page !== 0 && action === -1) {
+                if (page > 0 && change === -1) {
                     offset++;
                 }
 
@@ -51,13 +43,13 @@ new Vue({
             let params = {
                 mode: this.StrtoGulagInt(),
                 sort: this.sort,
-                limit: perPage,
+                limit: 50,
                 offset: offset
             };
             window.history.replaceState('', document.title, `/leaderboard?mode=${this.mode}&mods=${this.mods}&sort=${this.sort}&page=${page + 1}`);
             this.$axios.get(`${window.location.protocol}//api.${domain}/v1/get_leaderboard`, { params: params })
             .then(res => {
-                if (res.data.leaderboard.length !== 51 && offset !== 0) {
+                if (res.data.leaderboard.length !== 51 && offset > 0) {
                     last_page = page + 1;
                 }
                 this.boards = res.data.leaderboard;

@@ -403,16 +403,16 @@ async def profile_select(id):
 
 @frontend.route('/leaderboard')
 @frontend.route('/lb')
-async def leaderboard(mode='std', sort='pp', mods='vn'):
+async def leaderboard():
     mode = request.args.get('mode', 'std', type=str) # 1. key 2. default value
     mods = request.args.get('mods', 'vn', type=str)
     sort = request.args.get('sort', 'pp', type=str)
-    page = request.args.get('page', 1, type=int)
+    page = request.args.get('page', 1, type=int) - 1
 
     if (
         mode not in VALID_MODES or mods not in VALID_MODS or
         mode == "mania" and mods == "rx" or mods == "ap" and mode != "std" or
-        sort not in ["pp", "score"]):
+        sort not in ["pp", "score"] or page < 0):
         return (await render_template('404.html'), 404)
 
     return await render_template('leaderboard.html', mode=mode, sort=sort, mods=mods, page=page)
