@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
-{% block title %} {{ bmap['title'] }}'s Leaderboard {% endblock %}
+{% block title %} {{ bmap['title'] }}'s Leaderboard - kokisu {% endblock %}
 
 {% block header %}
-<meta name="description" content="Beatmap leaderboard for {{ bmap['artist'] }} - {{ bmap['title'] }} [{{ bmap['version'] }}] ({{ bmap['creator'] }})">
+<meta name="description" content="Click to view the beatmap leaderboard.">
 
-<meta itemprop="name" content="{{ bmap['artist'] }} - {{ bmap['title'] }} [{{ bmap['version'] }}] Leaderboard - kokisu">
-<meta itemprop="description" content="Beatmap leaderboard for {{ bmap['artist'] }} - {{ bmap['title'] }} [{{ bmap['version'] }}] ({{ bmap['creator'] }})">
+<meta itemprop="name" content="{{ bmap['artist'] }} - {{ bmap['title'] }} ({{ bmap['creator'] }}) [{{ bmap['version'] }}]">
+<meta itemprop="description" content="Click to view the beatmap leaderboard.">
 <meta itemprop="image" content="https://assets.ppy.sh/beatmaps/{{ bmap['set_id'] }}/covers/raw.jpg">
 
 <meta property="og:url" content="https://{{ domain() }}/b/{{ bmap['id'] }}">
 <meta property="og:type" content="website">
-<meta property="og:title" content="{{ bmap['artist'] }} - {{ bmap['title'] }} [{{ bmap['version'] }}] Leaderboard - kokisu">
-<meta property="og:description" content="Beatmap leaderboard for {{ bmap['artist'] }} - {{ bmap['title'] }} [{{ bmap['version'] }}] ({{ bmap['creator'] }})">
+<meta property="og:title" content="{{ bmap['artist'] }} - {{ bmap['title'] }} ({{ bmap['creator'] }}) [{{ bmap['version'] }}]">
+<meta property="og:description" content="Click to view the beatmap leaderboard.">
 <meta property="og:image" content="https://assets.ppy.sh/beatmaps/{{ bmap['set_id'] }}/covers/raw.jpg">
 
-<meta name="twitter:title" content="{{ bmap['artist'] }} - {{ bmap['title'] }} [{{ bmap['version'] }}] Leaderboard - kokisu">
-<meta name="twitter:description" content="Beatmap leaderboard for {{ bmap['artist'] }} - {{ bmap['title'] }} [{{ bmap['version'] }}] ({{ bmap['creator'] }})" >
+<meta name="twitter:title" content="{{ bmap['artist'] }} - {{ bmap['title'] }} ({{ bmap['creator'] }}) [{{ bmap['version'] }}]">
+<meta name="twitter:description" content="Click to view the beatmap leaderboard." >
 <meta name="twitter:image" content="https://assets.ppy.sh/beatmaps/{{ bmap['set_id'] }}/covers/raw.jpg">
 <meta name="theme-color" content="#3F73A6">
 
