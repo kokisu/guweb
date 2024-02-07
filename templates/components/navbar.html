@@ -14,21 +14,37 @@
             </a>
         </div>
 
-        <div id="navbar" class="navbar-menu" style="zoom: 1.1">
+        <div id="navbar" class="navbar-menu">
             <div class="navbar-start">
                 <a class="navbar-item" href="/leaderboard">
                     Leaderboards
                 </a>
-                <a class="navbar-item" href="/rules">
-                    Rules
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Docs
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="/rules">
+                            Rules
+                        </a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a class="navbar-link">
+                        Socials
+                    </a>
+                    <div class="navbar-dropdown">
+                        <a class="navbar-item" href="/discord">
+                            Discord
+                        </a>
+                        <a class="navbar-item" href="/yt">
+                            YouTube
+                        </a>
+                    </div>
+                </div>
+                <a class="navbar-item" href="/topplays">
+                    Top Plays
                 </a>
-                <a class="navbar-item" href="/discord">
-                    Discord
-                </a>
-                <a class="navbar-item" href="/yt">
-                    YouTube
-                </a>
-
                 {% if session.authenticated and session.user_data['is_staff'] %}
                 <a class="navbar-item" href="/admin">
                     Admin
@@ -48,7 +64,7 @@
                     </div>
                 </div>
                 {% if session.authenticated %}
-                <div class="navbar-item has-dropdown is-hoverable">
+                <div class="navbar-item has-dropdown is-hoverable" style="zoom: 1.1">
                     <a class="navbar-link">
                         <div class="navbar-avatar" style="background: url(https://a.{{ domain() }}/{{ session.user_data['id'] }}); background-size: cover; background-position: 50%;"></div>
                         {{ session.user_data['name'] }}
@@ -67,7 +83,7 @@
                     </div>
                 </div>
                 {% else %}
-                <div class="navbar-item">
+                <div class="navbar-item" style="zoom: 1.1">
                     <div class="buttons">
                         <a class="button is-primary" href="/register">
                             <strong>Sign up</strong>
