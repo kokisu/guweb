@@ -8,8 +8,8 @@ new Vue({
             mode : 'std',
             mods : 'vn',
             sort : 'pp',
-            load : false,
-            no_player : false, // soon
+            country : 'all',
+            load : false
         };
     },
     created() {
@@ -22,19 +22,44 @@ new Vue({
             this.$set(this, 'mods', mods);
             this.$set(this, 'sort', sort);
         },
-        LoadLeaderboard(sort, mode, mods) {
+        LoadLeaderboard(sort, mode, mods, action = 0) {
             if (window.event)
                 window.event.preventDefault();
 
-            window.history.replaceState('', document.title, `/leaderboard/${this.mode}/${this.sort}/${this.mods}`);
+                if (sort === "score")
+                    sort = "rscore";
+
+                let offset = 0;
+                let perPage = 50;
+                if(action === 0) // first page
+                {
+                    last_page = page;
+                    page = 0;
+                }
+                else // +1 or -1 page
+                  page += action;
+                offset = page * perPage;
+
+                if (page !== 0 && action === -1) {
+                    offset++;
+                }
+
             this.$set(this, 'mode', mode);
             this.$set(this, 'mods', mods);
             this.$set(this, 'sort', sort);
             this.$set(this, 'load', true);
-            this.$axios.get(`${window.location.protocol}//api.${domain}/v1/get_leaderboard`, { params: {
+            let params = {
                 mode: this.StrtoGulagInt(),
-                sort: this.sort
-            }}).then(res => {
+                sort: this.sort,
+                limit: perPage,
+                offset: offset
+            };
+            window.history.replaceState('', document.title, `/leaderboard?mode=${this.mode}&mods=${this.mods}&sort=${this.sort}&page=${page + 1}`);
+            this.$axios.get(`${window.location.protocol}//api.${domain}/v1/get_leaderboard`, { params: params })
+            .then(res => {
+                if (res.data.leaderboard.length !== 51 && offset !== 0) {
+                    last_page = page + 1;
+                }
                 this.boards = res.data.leaderboard;
                 this.$set(this, 'load', false);
             });

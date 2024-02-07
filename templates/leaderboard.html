@@ -31,6 +31,7 @@
     var mods = "{{ mods }}";
     var sort = "{{ sort }}";
     var domain = "{{ domain() }}";
+    var page = {{ page }};
 </script>
 
 <link rel="stylesheet" href="/static/css/pages/leaderboard.css">
@@ -97,7 +98,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="(user, index) in boards" class="leaderboard-column">
-                            <td class="column-player-rank">#<% index + 1 %>
+                            <td class="column-player-rank">#<% (page * 50) + index + 1 %>
                             </td>
                             <td class="column-player-name text-left">
                                 <a :title="flags[user.country.toUpperCase()]"
@@ -107,7 +108,8 @@
                                         <% flags[user.country.toUpperCase()] %>
                                     </div>
                                 </a>
-                                <a class="player-avatar" :style="'background-image: url(https://a.kokisu.moe/' + user.player_id + ')'"></a>
+                                <a class="player-avatar"
+                                    :style="'background-image: url(https://a.kokisu.moe/' + user.player_id + ')'"></a>
                                 <a :href="'/u/'+user.player_id+'?mode='+mode+'&mods='+mods">
                                     <% user.name %>
                                 </a>
@@ -133,6 +135,22 @@
                 <div class="text-center">
                     there are no players to display!
                 </div>
+            </div>
+            <div class="pager">
+                <span class="pager-btn" v-bind:class="(page === 0) ? 'btn-disabled' : ''"
+                    @click="if (page > 0) LoadLeaderboard(sort, mode, mods, -1)">
+                    <span>
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </span>
+                </span>
+                Page <% page + 1 %>
+                <span class="pager-btn"
+                    v-bind:class="(page === (page + 1) || boards.length < 50) ? 'btn-disabled' : '3'"
+                    @click="if (boards.length == 50) LoadLeaderboard(sort, mode, mods, 1)">
+                    <span>
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </span>
+                </span>
             </div>
         </div>
     </div>
