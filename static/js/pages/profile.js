@@ -150,7 +150,7 @@ new Vue({
                 this.data.scores.recent.more.limit += 5;
                 this.LoadScores('recent');
             } else if (which == 'firstscore') {
-                this.data.scores.recent.more.limit += 5;
+                this.data.scores.first.more.limit += 5;
                 this.LoadScores('first');
             } else if (which == 'mostplay') {
                 this.data.maps.most.more.limit += 4;
