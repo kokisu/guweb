@@ -2,8 +2,6 @@
 {% block title %} Top {{ mode_str }} PP Plays {% endblock %}
 
 {% block header %}
-<script src="/static/js/asserts/vue.js"></script>
-<script src="/static/js/asserts/vue-axios.js"></script>
 <link rel="stylesheet" href="/static/css/pages/topplays.css">
 {% endblock %}
 
@@ -22,19 +20,19 @@
 
         <a class="mode-select {% if mode == 8 %}active{% endif %}" href="/topplays?mods=ap">
             <i class="mode-icon mode-osu"></i><span class="modetext" style="color:#fff"> ap!std</span></a>
-
+        <span style="margin-right: 30px"></span>
         <a class="mode-select {% if mode == 1 %}active{% endif %}" href="/topplays?mode=taiko">
             <i class="mode-icon mode-taiko"></i><span class="modetext" style="color:#fff"> vn!taiko</span></a>
 
         <a class="mode-select {% if mode == 5 %}active{% endif %}" href="/topplays?mods=rx&mode=taiko">
             <i class="mode-icon mode-taiko"></i><span class="modetext" style="color:#fff"> rx!taiko</span></a>
-
+        <span style="margin-right: 30px"></span>
         <a class="mode-select {% if mode == 2 %}active{% endif %}" href="/topplays?mode=catch">
             <i class="mode-icon mode-catch"></i><span class="modetext" style="color:#fff"> vn!catch</span></a>
 
         <a class="mode-select {% if mode == 6 %}active{% endif %}" href="/topplays?mods=rx&mode=catch">
             <i class="mode-icon mode-catch"></i><span class="modetext" style="color:#fff"> rx!catch</span></a>
-
+        <span style="margin-right: 30px"></span>
         <a class="mode-select {% if mode == 3 %}active{% endif %}" href="/topplays?mode=mania">
             <i class="mode-icon mode-mania"></i><span class="modetext" style="color:#fff"> vn!mania</span></a>
     </div>
@@ -49,7 +47,7 @@
             <img src="https://a.{{ domain() }}/{{ score['userid'] }}" class="avatar-picture" class="avatar-picture">
             <div class="user-stats"><span class="user-title">
                     <img src="/static/images/flags/{{ score['country']|upper }}.png" class="profile-flag"> {{
-                        score['name'] }}
+                    score['name'] }}
                 </span><span class="user-artist" style="width: 310;text-align:center;">
                     {{ score['title'] }} [{{ score['version'] }}]
                 </span>
