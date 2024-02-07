@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% block title %} Top {{ mode_str }} PP Plays {% endblock %}
+
+{% block header %}
+<script src="/static/js/asserts/vue.js"></script>
+<script src="/static/js/asserts/vue-axios.js"></script>
+<link rel="stylesheet" href="/static/css/pages/topplays.css">
+{% endblock %}
+
+{% block content %}
+
+<div class="main-block"
+    style="border-radius: 8px;width: 1350;height: 1970;background: hsl(var(--main),10%,15%);flex-direction: column;display: flex;border-radius: 24px;">
+    <div class="main-selector"
+        style="display: flex;flex-direction: row;align-items: flex-end;width: 100%;height: 42px;color: #fff;font-size: 14px;justify-content: center;margin-top: 20;position: relative;">
+
+        <a class="mode-select {% if mode == 0 %}active{% endif %}" href="/topplays">
+            <i class="mode-icon mode-osu"></i><span class="modetext" style="color:#fff"> vn!std</span></a>
+
+        <a class="mode-select {% if mode == 4 %}active{% endif %}" href="/topplays?mods=rx">
+            <i class="mode-icon mode-osu"></i><span class="modetext" style="color:#fff"> rx!std</span></a>
+
+        <a class="mode-select {% if mode == 8 %}active{% endif %}" href="/topplays?mods=ap">
+            <i class="mode-icon mode-osu"></i><span class="modetext" style="color:#fff"> ap!std</span></a>
+
+        <a class="mode-select {% if mode == 1 %}active{% endif %}" href="/topplays?mode=taiko">
+            <i class="mode-icon mode-taiko"></i><span class="modetext" style="color:#fff"> vn!taiko</span></a>
+
+        <a class="mode-select {% if mode == 5 %}active{% endif %}" href="/topplays?mods=rx&mode=taiko">
+            <i class="mode-icon mode-taiko"></i><span class="modetext" style="color:#fff"> rx!taiko</span></a>
+
+        <a class="mode-select {% if mode == 2 %}active{% endif %}" href="/topplays?mode=catch">
+            <i class="mode-icon mode-catch"></i><span class="modetext" style="color:#fff"> vn!catch</span></a>
+
+        <a class="mode-select {% if mode == 6 %}active{% endif %}" href="/topplays?mods=rx&mode=catch">
+            <i class="mode-icon mode-catch"></i><span class="modetext" style="color:#fff"> rx!catch</span></a>
+
+        <a class="mode-select {% if mode == 3 %}active{% endif %}" href="/topplays?mode=mania">
+            <i class="mode-icon mode-mania"></i><span class="modetext" style="color:#fff"> vn!mania</span></a>
+    </div>
+
+    <p class="title" style="text-align: center;font-size: 2rem;margin-bottom: 20px;"></p>
+    <p class="title" style="text-align: center;font-size: 2.4rem;margin-bottom: 20px;">Top {{ mode_str }} PP Plays
+    </p>
+    <div class="score" style="display: flex; justify-content: space-around; align-content: stretch; flex-wrap: wrap;">
+        {% for score in scores %}
+        <a href="https://{{ domain() }}/scores/{{ score['scoreid'] }}" class="user-block"
+            style="background-image: url('https://assets.ppy.sh/beatmaps/{{ score['set_id'] }}/covers/cover.jpg');">
+            <img src="https://a.{{ domain() }}/{{ score['userid'] }}" class="avatar-picture" class="avatar-picture">
+            <div class="user-stats"><span class="user-title">
+                    <img src="/static/images/flags/{{ score['country']|upper }}.png" class="profile-flag"> {{
+                        score['name'] }}
+                </span><span class="user-artist" style="width: 310;text-align:center;">
+                    {{ score['title'] }} [{{ score['version'] }}]
+                </span>
+                {% if score['mods'] != 0 %}
+                <span class="user-artist">
+                    {{ score['mods'] }}
+                </span>
+                {% endif %}
+                <div class="d-flex align-items-baseline" style="color: {{ score['grade']['color'] }}; font-size: 20">
+                    <span>{{ score['grade']['letter'] }}</span>
+                </div>
+                <div class="d-flex align-items-baseline">
+                    <span>
+                        {{ score['pp'] }}pp
+                    </span>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+</div>
+</div>
+</div>
+{% endblock %}

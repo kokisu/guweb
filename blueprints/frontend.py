@@ -143,6 +143,40 @@ async def settings_profile_post():
     session.pop('user_data', None)
     return await flash('success', 'Your username/email have been changed! Please login again.', 'login')
 
+@frontend.route('/topplays')
+async def topplays():
+    mods = request.args.get('mods', 'vn', type=str) # 1. key 2. default value
+    mode = request.args.get('mode', 'std', type=str)
+
+    # make sure mode & mods are valid args
+    if (
+        mode not in VALID_MODES or mods not in VALID_MODS or
+        mode == "mania" and mods == "rx" or mods == "ap" and mode != "std"):
+        return (await render_template('404.html'), 404)
+
+    (mode_int, mode_str) = {
+        ('vn', 'std'): (0, 'Vanilla '),
+        ('vn', 'taiko'): (1, 'Vanilla Taiko'),
+        ('vn', 'catch'): (2, 'Vanilla CTB'),
+        ('vn', 'mania'): (3, 'Vanilla Mania'),
+        ('rx', 'std'): (4, 'Relax Standard'),
+        ('rx', 'taiko'): (5, 'Relax Taiko'),
+        ('rx', 'catch'): (6, 'Relax Catch'),
+        ('ap', 'std'): (8, 'AutoPilot Standard')
+    }[(mods, mode)]
+
+    # get all top scores
+    scores = await glob.db.fetchall('SELECT s.status, s.id scoreid, userid, pp, mods, grade, m.set_id, m.title, m.version, u.country, u.name '
+                                    'FROM scores s LEFT JOIN users u ON u.id=s.userid LEFT JOIN maps m ON m.md5=s.map_md5 '
+                                    'WHERE s.mode=%s AND u.priv & 1 AND m.status in (2, 3) AND s.status=2 '
+                                    'ORDER BY PP desc LIMIT 45', [mode_int])
+    for score in scores:
+        score['mods'] = utils.get_mods(score['mods'])
+        score['grade'] = utils.get_color_formatted_grade(score['grade'])
+        score['pp'] = int(score['pp'])
+
+    return await render_template('topplays.html', scores=scores, mode_str=mode_str, mode=mode_int)
+
 @frontend.route('/settings/avatar')
 @login_required
 async def settings_avatar():
