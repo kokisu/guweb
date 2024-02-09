@@ -43,7 +43,7 @@
     <div class="score" style="display: flex; justify-content: space-around; align-content: stretch; flex-wrap: wrap;">
         {% for score in scores %}
         <a href="/scores/{{ score['scoreid'] }}" class="user-block"
-            style="background-image: url('https://assets.ppy.sh/beatmaps/{{ score['set_id'] }}/covers/cover.jpg');">
+            style="background: linear-gradient(rgba(24, 24, 30, 0.6) 0%, rgba(24, 24, 30, 0.8) 100%), url('https://assets.ppy.sh/beatmaps/{{ score['set_id'] }}/covers/cover.jpg');">
             <img src="https://a.{{ domain() }}/{{ score['userid'] }}" class="avatar-picture" class="avatar-picture">
             <div class="user-stats"><span class="user-title">
                     <img src="/static/images/flags/{{ score['country']|upper }}.png" class="profile-flag"> {{
