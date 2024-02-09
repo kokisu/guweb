@@ -56,6 +56,10 @@
   width: 20px;
 }
 
+a:hover {
+  color: rgb(172, 172, 215);
+}
+
 .info-block {
   display: flex;
   flex-direction: column;
@@ -578,10 +582,11 @@ span.beatmap-mapper {
   background: rgb(48, 48, 60);
   margin: 0px 8px 8px 8px;
   text-align: center;
+  transition: 0.2s;
 }
 
 .show-button:hover {
-  transform: scale(0.95);
+  transform: translateY(-2px);
 }
 
 .anime-girl {
