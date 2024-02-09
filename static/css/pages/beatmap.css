@@ -10,7 +10,6 @@ a:hover {
 }
 
 .main-block {
-  background-color: hsl(var(--main), 10%, 15%);
   margin-top: 0;
   width: auto;
   border-bottom-right-radius: 8px;
@@ -82,7 +81,11 @@ a:hover {
     font-size: 14px;
     justify-content: center;
     position: relative;
-    background-color: hsl(var(--main),45%,45%);
+    background-color: rgb(64, 64, 80);
+  }
+
+  .diff-selector {
+    background-color: rgb(40, 40, 50);
   }
   
   .mode-select {
@@ -313,7 +316,7 @@ a:hover {
   color: #222;
   height: 38px;
   font-size: 12px;
-  background-color: hsl(var(--main), 15%, 25%);
+  background-color: rgb(48, 48, 60);
 }
 
 tr td {
@@ -323,7 +326,7 @@ tr td {
 .column-player-rank {
   padding: 0 10px;
   text-align: center;
-  background-color: hsl(var(--main), 15%, 27%) !important;
+  background-color: rgb(38, 38, 47.5);
   min-width: 44px;
   font-weight: 600;
   font-size: 13px;
@@ -408,7 +411,7 @@ table th {
 }
 
 .leaderboard-column:hover td:not(:first-child) {
-  background-color: hsl(var(--main), 20%, 30%);
+  background-color: rgb(64, 64, 80);
 }
 .temp-buttons { 
   width: 100%;

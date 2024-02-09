@@ -17,16 +17,45 @@ body {
 html {
   position: relative;
   min-height: 100%;
+  background: linear-gradient(0deg, rgb(32, 32, 40) 0%, rgb(48, 48, 60) 100%);
+  background-repeat: no;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.button.is-primary {
+  background-color: rgb(74, 74, 92.5);
+}
+
+.button.is-primary.is-hovered, .button.is-primary:hover {
+  background-color: rgb(92, 92, 115);
+}
+
+.button.is-info {
+  background-color: rgb(56, 56, 70);
+}
+
+.box {
+  background-color: rgb(40, 40, 50);
+}
+
+a {
+  color: rgb(172, 172, 215);
 }
 
 .footer {
   padding: 20px;
   margin-top: 39px;
+  background-color: rgb(32, 32, 40);
 }
 
 .main-block {
   width: inherit;
-  background: hsl(var(--main), 10%, 15%);
+  background: rgb(32, 32, 40);
+}
+
+.navbar-dropdown {
+  background-color: rgb(48, 48, 60);
 }
 
 /* stuffs */
@@ -81,7 +110,7 @@ html {
 }
 
 .is-weeb {
-  background: hsl(var(--main), 30%, 50%);
+  background: rgb(32, 32, 40);
   border-top-right-radius: 16px;
   border-top-left-radius: 16px;
 }
@@ -175,6 +204,7 @@ a.foot-link {
   width: 100%;
   transition: 0.2s ease;
   min-height: 55px;
+  background-color: rgb(47, 47, 59) !important;
 }
 
 .navbar-logo {
@@ -206,7 +236,7 @@ a.foot-link {
   outline: none;
   border: none;
   color: rgb(255, 255, 255) !important;
-  background-color: hsl(var(--main), 40% 70%);
+  background-color: rgb(0, 0, 0, 12%);
   padding: 8px 7px;
   transition: min-width 0.25s ease 0s;
 }
@@ -264,14 +294,14 @@ a.foot-link {
 
 .search-results::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: hsl(var(--main), 30%, 60%);
+  background-color: rgb(72, 72, 90);
 }
 
 .search-bar {
   display: flex;
   justify-content: space-between;
   white-space: nowrap;
-  background: rgb(0, 0, 0, 10%);
+  background: rgb(191, 191, 255, 15%);
   border-radius: 5px;
 }
 
@@ -285,34 +315,6 @@ a.foot-link {
 
 .navbar.is-spaced {
   padding: 0rem 2rem;
-}
-
-.minimized {
-  width: 100%;
-  top: 0;
-  backdrop-filter: blur(4px);
-  background-color: hsla(var(--main), 50%, 50%, 0.7) !important;
-}
-
-.minimized.navbar {
-  height: 48px;
-  padding: 0px 40px;
-}
-
-.minimized .navbar-logo {
-  font-size: 15px !important;
-}
-
-.minimized .navbar-item {
-  font-size: 12px;
-}
-
-.minimized .navbar-item .button {
-  padding-bottom: calc(0.25em - 1px);
-  padding-left: 0.8em;
-  padding-right: 0.8em;
-  padding-top: calc(0.25em - 1px);
-  font-size: 12px;
 }
 
 .navbar-item {
@@ -384,15 +386,7 @@ a.foot-link {
 .input,
 .select select,
 .textarea {
-  background-color: hsl(var(--main), 12%, 18%);
-}
-
-.bg-accent {
-  background-color: hsl(var(--main), 30%, 50%);
-}
-
-.bg-seccond {
-  background-color: hsl(var(--main), 10%, 15%);
+  background-color: rgb(32, 32, 40);
 }
 
 /* auth notification */
@@ -421,10 +415,10 @@ a.foot-link {
 
 .noti-banner {
   display: flex;
-  padding: 8px;
+  padding: 17px 8px 8px 8px;
   font-size: 12px;
   color: #fff;
-  background-color: hsl(var(--main), 25%, 20%);
+  background-color: rgb(32, 32, 40);
   z-index: 1;
   flex-direction: column;
   text-align: center;
@@ -493,7 +487,7 @@ a.foot-link {
   position: absolute;
   content: "";
   height: 3px;
-  background-color: hsl(var(--main), 50%, 50%);
+  background-color: rgb(64, 64, 80);
   border-radius: 10px;
   left: 0;
   bottom: 0;

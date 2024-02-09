@@ -1,5 +1,4 @@
 .main-block{
-    background-color: hsl(var(--main),10%,15%);
     color: #fff;
     padding: 20px;
 }
@@ -83,7 +82,7 @@ button:focus{
 }
 
 .box {
-    padding: 2.25rem 1.75rem;
+    padding: 1.5rem 1.75rem;
 }
 
 input.input {

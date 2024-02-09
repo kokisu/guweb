@@ -47,7 +47,7 @@
             {% elif map['status'] == 5 %}
             <i class="fas fa-heart" style="color: rgb(255, 105, 180); font-size: 1.2em; margin: 0px 5px 0px 10px;"></i>
             {% endif %}
-            <a href="https://{{ domain() }}/b/{{ map['id'] }}?mode={{ mode }}&mods={{ mods }}" style="font-size: 19px; font-weight: 450;">{{ map['title'] }}</a> by <span style="font-size: 16px; font-weight: 450;">{{ map['artist'] }}</span><br> 
+            <a href="/b/{{ map['id'] }}?mode={{ mode }}&mods={{ mods }}" style="font-size: 19px; font-weight: 450;">{{ map['title'] }}</a> by <span style="font-size: 16px; font-weight: 450;">{{ map['artist'] }}</span><br> 
             <i class="{{ score['mode_icon'] }}" style="font-size: 22; color: {{ map['colordiff'] }}!important;"></i>       
             <span style="background-color: {{ map['colordiff'] }}; border-radius: 99999px; {% if map['diff'] < 6.6 %} color: black;{% endif %} {% if map['diff'] >= 6.6 %} color: #ffd966!important;{% endif %} font-weight: 600; padding: 2px 8px; font-size: 12px; margin-right:5.5px"><i class="fas fa-star fa-xs" style="{% if map['diff'] < 6.6 %} color: black; {% else %}color: #ffd966!important;{% endif %}"></i>  {{ map['diff'] }}</span>
             <span style="font-weight: 450; font-size: 17px;">{{ map['version'] }}</span></span> beatmap by <a href="https://osu.ppy.sh/u/{{ map['creator'] }}" style="font-size: 16px; font-weight: 450;">{{ map['creator'] }}</a>
@@ -76,13 +76,13 @@
                 Download Replay
             </button>
             
-            <button type="button" class="link-button" onclick="window.open('https://{{ domain() }}/b/{{ map['id'] }}?mode={{ mode }}&mods={{ mods }}','_blank')">
+            <button type="button" class="link-button" onclick="window.open('/b/{{ map['id'] }}?mode={{ mode }}&mods={{ mods }}','_blank')">
                 Open map
             </button>
         </div>
     </div>
     <div class="main-block">
-        <div class="user-card" style="background-image: url(https://{{ domain() }}/banners/{{ score['userid'] }}); cursor: pointer;" onclick="window.location='https://{{ domain() }}/u/{{ score['userid'] }}'">
+        <div class="user-card" style="background-image: url(/banners/{{ score['userid'] }}); cursor: pointer;" onclick="window.location='https://{{ domain() }}/u/{{ score['userid'] }}'">
             <div class="user-card-avatar">
                 <img src="https://a.{{ domain() }}/{{ score['userid'] }}" class="user-card-avatar-image" onError="this.src='/static/images/avatar_notwork.png';">
             </div>

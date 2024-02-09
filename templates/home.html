@@ -62,17 +62,18 @@
 {% endif %}
 
 <center id="home-app">
-  <div class="hero splash p-less is-fullheight-with-navbar" id="home-hero">
+  <div class="hero p-less is-fullheight-with-navbar" id="home-hero">
     <div class="container flex">
       <div class="columns flex-vcenter">
         <div class="column flex-vcenter flex-lcenter is-size-2-desktop is-size-1-fullhd" id="title" style="zoom: 1.1">
           <h1 class="title is-spaced is-size-2-desktop is-size-1-fullhd">
-            <div class="navbar-logo-img" style="width:300px; height: 81px; margin-bottom:40px">
+            <div class="navbar-logo-img" style="width: 478px; height: 150px; margin-bottom:40px">
           </h1>
           <h2 class="subtitle">
             Welcome to Kokisu, the osu! private server that honors sst3w's popular internet cat called Koki!<br />
-            We offer a vanilla, autopilot & relax osu! experience. Join our <a href="/discord">Discord</a> for the
-            latest updates!
+            We offer a vanilla, autopilot & relax osu! experience.
+            <br/><br/>
+            Join our <a href="/discord">Discord</a> for the latest updates!
           </h2>
           {% if not session.authenticated %}
           <div class="buttons flex-lcenter">
@@ -86,12 +87,12 @@
           {% endif %}
           <div id="users" class="users">
             <div class="user-counter">
-              <span style="color: #68d57f;">
+              <span style="color: #68d57f">
                 <% online_users %>
               </span> online users
             </div>
             <div class="user-counter">
-              <span style="color: #e7556b;">
+              <span style="color: #e7556b">
                 <% registered_users %>
               </span> registered users
             </div>

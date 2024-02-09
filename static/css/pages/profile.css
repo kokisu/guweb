@@ -10,14 +10,16 @@
 }
 
 .second-block {
-  background: hsl(var(--main), 12%, 15%);
+  background: rgb(32, 32, 40);
 }
 
 .stats-block {
   width: 100%;
-  background: hsl(var(--main), 25%, 25%);
+  background: rgb(48, 48, 60);
   padding: 9.5px;
   margin-bottom: 9.5px !important;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .profile-flex {
@@ -36,7 +38,7 @@
   align-items: flex-end;
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
-  background: hsl(var(--main), 30%, 50%);
+  background: rgb(32, 32, 40);
   position: relative;
   overflow: hidden;
 }
@@ -104,11 +106,11 @@
 }
 
 .mode-selects {
-  background: hsl(var(--main), 25%, 22%);
+  background: rgb(32, 32, 40);
 }
 
 .badge-selects {
-  background: hsl(var(--main), 16%, 20%);
+  background: rgb(24, 24, 30);
   display: inline-table;
 }
 
@@ -219,32 +221,6 @@ html {
   -progress: 100%;
 }
 
-.level-bar {
-  background: #413030;
-  overflow: hidden;
-}
-
-.level-num {
-  background: #413030;
-}
-
-.progress-level {
-  content: "";
-  top: 0;
-  left: 0;
-  height: 100%;
-  background: hsl(var(--main), 30%, 50%);
-  -webkit-transition: all 0.5s ease;
-  transition: all 0.5s ease;
-}
-
-.column.level-num.is-one-fifth.is-textcen {
-  font-size: 20px;
-  padding: 5px;
-  font-weight: 500;
-  background: hsl(var(--main), 30%, 38%);
-}
-
 .column.is-1,
 .column.is-1-tablet {
   flex: none;
@@ -262,7 +238,7 @@ html {
 
 .header {
   padding: 10px 10px;
-  background: hsl(var(--main), 30%, 50%);
+  background: rgb(64, 64, 80);
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
@@ -274,8 +250,7 @@ html {
 .scores {
   background: content-box;
   transition: 0.2s transform ease;
-  background: hsl(var(--main), 20%, 20%);
-  padding: 6px;
+  padding: 6px 6px 0px 6px;
 }
 
 .map-single {
@@ -291,6 +266,7 @@ html {
   background: hsl(var(--main), 25%, 25%);
   transition: 0.2s ease;
   cursor: pointer;
+  border-radius: 8px;
 }
 
 .map-data {
@@ -309,7 +285,6 @@ html {
 }
 
 .map-single:hover {
-  border-radius: 8px;
   transform: translateY(-1px);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04),
     0 16px 24px rgba(0, 0, 0, 0.04), 0 24px 32px rgba(0, 0, 0, 0.04);
@@ -379,13 +354,13 @@ html {
 }
 
 .map-mods {
-  color: hsl(var(--main), 88%, 88%);
+  color: rgba(255, 255, 255, 0.7);
   font-size: 14px;
 }
 
 .map-pp {
   font-weight: 550;
-  color: hsl(var(--main), 50%, 75%);
+  color: rgb(192, 192, 220);
   font-size: 20px;
 }
 
@@ -495,7 +470,7 @@ html {
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(auto-fill, minmax(399px, 312px));
-  background: hsl(var(--main), 20%, 20%);
+  background: rgb(24, 24, 30);
   padding: 6px 6px 12px 6px;
 }
 
@@ -515,12 +490,13 @@ html {
 }
 
 .beatmap-block {
-  background-color: hsl(var(--main), 25%, 25%);
+  border-radius: 8px;
+  background-color: rgb(48, 48, 60);
   color: #fff;
 }
 
 .beatmap-block:hover {
-  background-color: hsl(var(--main), 25%, 30%);
+  background-color: rgb(64, 64, 80);
   transform: scale(1.01);
   box-shadow: 0 0 1px rgba(0, 0, 0, 0.04), 0 4px 8px rgba(0, 0, 0, 0.04),
     0 16px 24px rgba(0, 0, 0, 0.04), 0 24px 32px rgba(0, 0, 0, 0.04);
@@ -553,13 +529,13 @@ html {
 }
 
 .beatmap-footer .target-button {
-  background-color: hsl(var(--main), 25%, 30%);
+  background-color: rgb(64, 64, 80);
   border-radius: 6px;
   padding: 4.5px 7px;
   font-size: 12px;
   margin-left: 10px;
   transition: 0.2s background-color;
-  color: hsl(var(--main), 65%, 75%);
+  color: #fff;
 }
 
 .beatmap-preview {
@@ -595,12 +571,11 @@ span.beatmap-mapper {
   width: 100%;
   display: flex;
   justify-content: center;
-  background: hsl(var(--main), 20%, 20%);
 }
 
 .show-button {
   padding: 3px 42px;
-  background: hsl(var(--main), 25%, 25%);
+  background: rgb(48, 48, 60);
   margin: 0px 8px 8px 8px;
   text-align: center;
 }
@@ -782,11 +757,12 @@ span.beatmap-mapper {
 .log-block {
   transition: 0.2s ease;
   margin-bottom: 12px;
+  background: rgb(24, 24, 30);
 }
 
 .is-badge {
   display: inline-block;
-  background: hsl(var(--main),12%,15%);
+  background: rgb(40, 40, 50);
   color: white;
   border-radius: 25px;
   justify-content: center;
@@ -796,22 +772,8 @@ span.beatmap-mapper {
   padding-top: calc(.5em - 1px);
   text-align: center;
   white-space: nowrap;
-}
-
-.is-badge {
-      display: inline-block;
-      background: hsl(var(--main),12%,15%);
-      color: white;
-      border-radius: 15px;
-      justify-content: center;
-      padding-bottom: calc(.5em - 1px);
-      padding-left: 1em;
-      padding-right: 1em;
-      padding-top: calc(.5em - 1px);
-      text-align: center;
-      white-space: nowrap;
-      transition: all 0.3s ease-in-out;
-      margin: 3px 0px 3px;
+  transition: all 0.3s ease-in-out;
+  margin: 3px 0px 3px;
 }
 
 .is-badge:hover {

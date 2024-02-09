@@ -1,6 +1,5 @@
 .main-block {
     height: auto;
-    background-color: hsl(var(--main),10%,15%);
     color: #fff;
 }
 

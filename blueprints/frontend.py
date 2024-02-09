@@ -424,6 +424,10 @@ async def login():
 
     return await render_template('login.html')
 
+@frontend.route('/verify', methods=['GET'])
+async def verify():
+    return await render_template('verify.html')
+
 @frontend.route('/login', methods=['POST'])
 async def login_post():
     if 'authenticated' in session:
@@ -444,8 +448,9 @@ async def login_post():
         'SELECT id, name, email, priv, '
         'pw_bcrypt, silence_end '
         'FROM users '
-        'WHERE safe_name = %s',
-        [utils.get_safe_name(username)]
+        'WHERE safe_name = %s OR email = %s '
+        'ORDER BY safe_name = %s DESC ',
+        [utils.get_safe_name(username), username, utils.get_safe_name(username)]
     )
 
     # user doesn't exist; deny post
@@ -507,7 +512,7 @@ async def login_post():
         login_time = (time.time_ns() - login_time) / 1e6
         log(f'Login took {login_time:.2f}ms!', Ansi.LYELLOW)
 
-    return await flash('success', f'Hey, welcome back {username}!', 'home')
+    return await flash('success', f'Hey, welcome back {session["user_data"]["name"]}!', 'home')
 
 _status_str_dict = {
     3: "Approved",

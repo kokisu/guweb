@@ -108,9 +108,9 @@
                 @click="LoadBeatmap(mode, 'ap', bid, 'mchange')">Autopilot</a>
             </div>
         </div>
-        <div style="width: 100%;" style="background-color: hsl(var(--main), 10%, 15%);">
-        <div class="diff-selector" style="height:auto;">
-            <div class="left" style="margin:4.5px;">
+        <div style="width: 100%;">
+        <div class="diff-selector">
+            <div class="left" style="padding: 4.5px">
             {% for _bmap in bmapset %}
                 <a class="mode-select" @click="LoadBeatmap('{{ _bmap['modetext'] }}', mods, {{ _bmap['id'] }}, 'diff');" v-bind:class="{'active': mapinfo.id === {{ _bmap['id'] }}}" title="{{ _bmap['version'] }} ({{ _bmap['diff'] }}★) ({{ _bmap['status'] }})" style="margin-left: 3px; color: {{ _bmap['diff_color'] }};">
                   <i class="{{ _bmap['icon'] }}" style="font-size: 19px; margin-right: 0.5px; color: {{ _bmap['diff_color'] }}!important;"></i>
@@ -242,7 +242,7 @@
                             </td>
                         </td>
                         <td class="t-column t-column--dimmed" style="padding:5px;">
-                          <a v-bind:href="'https://{{ domain() }}/scores/' + user.id"><i class="fa fa-eye" style="margin:10;"></i></a>
+                          <a v-bind:href="'/scores/' + user.id"><i class="fa fa-eye" style="margin:10;"></i></a>
                         </td>
                         </tr>
                     </tbody>
@@ -250,7 +250,7 @@
             </div>
             <div v-else>
                 <div class="text-center" style="margin:30;">
-                    There are no players to display!
+                    There are no scores to display!
                 </div>
             </div>
         </div>

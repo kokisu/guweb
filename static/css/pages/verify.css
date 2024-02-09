@@ -1,5 +1,4 @@
 .main-block {
-    background-color: hsl(var(--main), 10%, 15%);
     color: #fff;
     padding: 20px;
 }
@@ -23,23 +22,6 @@
     display: flex;
     align-items: center;
     place-content: center;
-}
-
-.selection-block {
-    height: 175px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-size: cover;
-    margin: 5;
-    border-radius: 7px;
-    transition: 0.2s ease;
-    background: hsl(var(--main), 10%, 25%);
-}
-
-.selection-block:hover {
-    box-shadow: 1px 1px 13px -5px #000;
-    transform: translateY(-5px);
 }
 
 .title:not(:last-child) {
@@ -107,7 +89,7 @@ button:focus {
 }
 
 .bordertitle {
-    border-left: 6px solid hsl(var(--main), 30%, 50%);
+    border-left: 6px solid rgb(64, 64, 80);
 }
 
 .bordertitle .title {
@@ -141,7 +123,7 @@ button:focus {
     width: 39px;
     min-width: 39px;
     height: 39px;
-    background: hsl(var(--main), 30%, 50%);
+    background: rgb(64, 64, 80);
     border-radius: 6px;
 }
 
@@ -166,7 +148,7 @@ button:focus {
 }
 
 #discord:hover {
-    transform: translateY(-10px);
+    transform: translateY(-3px);
 }
 
 .discord-logo {
@@ -187,7 +169,7 @@ button:focus {
 }
 
 .is-waiting {
-    background: hsl(var(--main), 15%, 12%);
+    background: rgb(32, 32, 40);
     border-radius: 0px;
     padding: 6px 20px !important;
 }
