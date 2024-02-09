@@ -254,7 +254,7 @@ html {
 .scores {
   background: content-box;
   transition: 0.2s transform ease;
-  padding: 6px 6px 0px 6px;
+  padding: 6px 6px 0.1px 6px;
 }
 
 .map-single {
