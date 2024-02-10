@@ -596,7 +596,7 @@ async def score_select(id):
     score_data['pp'] = round(float(score_data['pp']), 2)
     score_data['score'] = "{:,}".format(int(score_data['score']))
     score_data['grade'] = utils.get_color_formatted_grade(score_data['grade'])
-    score_data['ptformatted'] = datetime.datetime.strptime(str(score_data['play_time']), "%Y-%m-%d %H:%M:%S").strftime("%d %B %Y")
+    score_data['ptformatted'] = datetime.datetime.strptime(str(score_data['play_time']), "%Y-%m-%d %H:%M:%S").strftime("%d %B %Y %H:%M:%S")
     if score_data['mods'] != 0:
         score_data['mods'] = utils.get_mods(score_data['mods'])
     score_data['mode_icon'] = utils.get_mode_icon(score_data['mode'])
