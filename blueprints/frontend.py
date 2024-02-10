@@ -613,7 +613,7 @@ async def score_select(id):
     map_data['diff'] = round(map_data['diff'], 2)
 
     user_data['customization'] = utils.has_profile_customizations(score_data['userid'])
-    return await render_template('score.html', score=score_data, mods_mode_str=mods_mode_str, map=map_data, mode=mode, mods=mods, userinfo=user_data, datetime=datetime, timeago=timeago, pp=int(score_data['pp']))
+    return await render_template('score.html', score=score_data, mods_mode_str=mods_mode_str, map=map_data, mode=mode, mods=mods, userinfo=user_data, datetime=datetime, timeago=timeago, pp=int(score_data['pp'] + 0.5))
 
 @frontend.route('/register')
 async def register():
