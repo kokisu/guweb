@@ -531,11 +531,26 @@ _mode_str_dict = {
     3: 'mania'
 }
 
+@frontend.route('/s/<sid>')
+@frontend.route('/beatmapsets/<sid>')
+async def beatmapsetse(sid):
+    mode = request.args.get('mode', 'std', type=str) # 1. key 2. default value
+    mods = request.args.get('mods', 'vn', type=str)
+
+    # Make sure mode, mods and id are valid, otherwise 404 page
+    if (
+        sid == None or not sid.isdigit() or
+        mode not in VALID_MODES or mods not in VALID_MODS or
+        mode == "mania" and mods == "rx" or mods == "ap" and mode != "std"):
+        return (await render_template('404.html'), 404)
+
+    bmap = await glob.db.fetch('SELECT id FROM maps WHERE set_id = %s ORDER BY diff DESC LIMIT 1', [sid])
+    if not bmap:
+        return (await render_template('404.html'), 404)
+
+    return redirect(f'/b/{bmap["id"]}')
+
 @frontend.route('/b/<bid>')
-@frontend.route('/b/<bid>')
-@frontend.route('/b/<bid>')
-@frontend.route('/beatmaps/<bid>')
-@frontend.route('/beatmaps/<bid>')
 @frontend.route('/beatmaps/<bid>')
 async def beatmap(bid):
     mode = request.args.get('mode', 'std', type=str) # 1. key 2. default value
