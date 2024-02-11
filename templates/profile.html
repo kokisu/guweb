@@ -168,6 +168,9 @@
     var mode = '{{ mode }}';
     var mods = '{{ mods }}';
     var domain = "{{ domain() }}";
+
+    // Ensure the url is /u/id, not /u/name
+    history.replaceState(null, "", `/u/${userid}`);
 </script>
 {% endblock %}
 
