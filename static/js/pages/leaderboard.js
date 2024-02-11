@@ -14,7 +14,7 @@ new Vue({
     },
     created() {
         this.LoadData(mode, mods, sort);
-        this.LoadLeaderboard(sort, mode, mods);
+        this.LoadLeaderboard(sort, mode, mods, 0);
     },
     methods: {
         LoadData(mode, mods, sort) {
@@ -22,19 +22,21 @@ new Vue({
             this.$set(this, 'mods', mods);
             this.$set(this, 'sort', sort);
         },
-        LoadLeaderboard(sort, mode, mods, change = 0) {
+        LoadLeaderboard(sort, mode, mods, change = null) {
             if (window.event)
                 window.event.preventDefault();
 
-                if (sort === "score")
-                    sort = "rscore";
+            if (change === null)
+            {
+              page = 0;
+            }
+            else
+              page += change;
 
-                page += change;
-                let offset = page * 50;
+            let offset = page * 50;
 
-                if (page > 0 && change === -1) {
-                    offset++;
-                }
+            if (page > 0 && change === -1)
+                offset++;
 
             this.$set(this, 'mode', mode);
             this.$set(this, 'mods', mods);
@@ -42,7 +44,7 @@ new Vue({
             this.$set(this, 'load', true);
             let params = {
                 mode: this.StrtoGulagInt(),
-                sort: this.sort,
+                sort: this.sort.replace("score", "rscore"),
                 limit: 50,
                 offset: offset
             };
