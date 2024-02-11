@@ -87,9 +87,9 @@
                         <tr>
                             <th class="t-heading"> </th>
                             <th class="t-heading t-heading--main"></th>
-                            <th v-if="sort == 'pp' || sort == 'rscore'" class="t-heading table--selected">
+                            <th v-if="sort == 'pp' || sort == 'score'" class="t-heading table--selected">
                                 <% (sort=='pp' ? "PP" : "" ) %>
-                                    <% (sort=='rscore' ? "Score" : "" ) %>
+                                    <% (sort=='score' ? "Score" : "" ) %>
                             </th>
                             <th class="t-heading"> Accuracy </th>
                             <th class="t-heading"> Playcount </th>
@@ -114,9 +114,9 @@
                                     <% user.name %>
                                 </a>
                             </td>
-                            <td v-if="sort == 'pp' || sort == 'rscore'">
+                            <td v-if="sort == 'pp' || sort == 'score'">
                                 <% (sort=='pp' ? user.pp+'pp' : "" ) %>
-                                    <% (sort=='rscore' ? scoreFormat(user.rscore) : "" ) %>
+                                    <% (sort=='score' ? scoreFormat(user.rscore) : "" ) %>
                             </td>
                             <td>
                                 <% user.acc.toFixed(2) %>%
