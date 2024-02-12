@@ -459,14 +459,22 @@ async def leaderboard():
     mods = request.args.get('mods', 'vn', type=str)
     sort = request.args.get('sort', 'pp', type=str)
     page = request.args.get('page', 1, type=int) - 1
-
+    country = request.args.get('country', 'all', type=str)
+    if country != "all" and len(country) > 2:
+        try:
+            country = pycountry.countries.get(name=country).alpha_2
+        except:
+            try:
+                country = pycountry.countries.get(alpha_3=country).alpha_2
+            except:
+                return await flash('error', 'Please specify a valid country!', 'home')   
     if (
         mode not in VALID_MODES or mods not in VALID_MODS or
         mode == "mania" and mods == "rx" or mods == "ap" and mode != "std" or
         sort not in ["pp", "score"] or page < 0):
         return (await render_template('404.html'), 404)
 
-    return await render_template('leaderboard.html', mode=mode, sort=sort, mods=mods, page=page)
+    return await render_template('leaderboard.html', mode=mode, sort=sort, mods=mods, page=page, country=country)
 
 @frontend.route('/login')
 async def login():
