@@ -173,7 +173,7 @@ async def topplays():
     for score in scores:
         score['mods'] = utils.get_mods(score['mods'])
         score['grade'] = utils.get_color_formatted_grade(score['grade'])
-        score['pp'] = int(score['pp'])
+        score['pp'] = round(score['pp'], 1)
 
     return await render_template('topplays.html', scores=scores, mode_str=mode_str, mode=mode_int)
 
