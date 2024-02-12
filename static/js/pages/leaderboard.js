@@ -13,16 +13,17 @@ new Vue({
         };
     },
     created() {
-        this.LoadData(mode, mods, sort);
-        this.LoadLeaderboard(sort, mode, mods, 0);
+        this.LoadData(mode, mods, sort, country);
+        this.LoadLeaderboard(sort, mode, mods, 0, country);
     },
     methods: {
-        LoadData(mode, mods, sort) {
+        LoadData(mode, mods, sort, country) {
             this.$set(this, 'mode', mode);
             this.$set(this, 'mods', mods);
             this.$set(this, 'sort', sort);
+            this.$set(this, 'country', country);
         },
-        LoadLeaderboard(sort, mode, mods, change = null) {
+        LoadLeaderboard(sort, mode, mods, change = null, country) {
             if (window.event)
                 window.event.preventDefault();
 
@@ -41,6 +42,7 @@ new Vue({
             this.$set(this, 'mode', mode);
             this.$set(this, 'mods', mods);
             this.$set(this, 'sort', sort);
+            this.$set(this, 'country', country);
             this.$set(this, 'load', true);
             let params = {
                 mode: this.StrtoGulagInt(),
@@ -48,7 +50,10 @@ new Vue({
                 limit: 50,
                 offset: offset
             };
-            window.history.replaceState('', document.title, `/leaderboard?mode=${this.mode}&mods=${this.mods}&sort=${this.sort}&page=${page + 1}`);
+            if (country !== 'all') {
+                params.country = this.country;
+            }
+            window.history.replaceState('', document.title, `/leaderboard?mode=${this.mode}&mods=${this.mods}&sort=${this.sort}${this.country !== 'all' ? `&country=${this.country}` : ''}&page=${page + 1}`);
             this.$axios.get(`${window.location.protocol}//api.${domain}/v1/get_leaderboard`, { params: params })
             .then(res => {
                 if (res.data.leaderboard.length !== 51 && offset > 0) {
@@ -56,6 +61,7 @@ new Vue({
                 }
                 this.boards = res.data.leaderboard;
                 this.$set(this, 'load', false);
+                this.togglecountry(this.country);
             });
         },
         scoreFormat(score) {
@@ -66,6 +72,16 @@ new Vue({
                 return `${addCommas((score / 1000000).toFixed(2))} million`;
             }
             return addCommas(score);
+        },
+        togglecountry(country) {
+            if (country !== 'all') { 
+                var banner = document.getElementById("lb-name"); 
+                banner.innerHTML = `<img id="lb-flag" class="player-flag" src="/static/images/flags/${country.toUpperCase()}.png" style="margin-right: 8px;">${flags[country.toUpperCase()]} Leaderboard`; 
+            }
+            else { 
+                var banner = document.getElementById("lb-name"); 
+                banner.innerText = `Leaderboard`; 
+            } 
         },
         addCommas(nStr) {
             nStr += '';
