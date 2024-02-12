@@ -14,7 +14,7 @@ new Vue({
     },
     created() {
         this.LoadData(mode, mods, sort, country);
-        this.LoadLeaderboard(sort, mode, mods, 0, country);
+        this.LoadLeaderboard(sort, mode, mods, country, 0);
     },
     methods: {
         LoadData(mode, mods, sort, country) {
@@ -23,7 +23,7 @@ new Vue({
             this.$set(this, 'sort', sort);
             this.$set(this, 'country', country);
         },
-        LoadLeaderboard(sort, mode, mods, change = null, country) {
+        LoadLeaderboard(sort, mode, mods, country, change = null) {
             if (window.event)
                 window.event.preventDefault();
 
