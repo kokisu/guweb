@@ -419,7 +419,7 @@ async def profile_select(id):
     mode = request.args.get('mode', 'std', type=str) # 1. key 2. default value
     mods = request.args.get('mods', 'vn', type=str)
     user_data = await glob.db.fetch(
-        'SELECT name, safe_name, id, priv, country, creation_time, latest_activity '
+        'SELECT name, safe_name, id, priv, country, userpage_content, creation_time, latest_activity '
         'FROM users '
         'WHERE safe_name = %s OR id = %s LIMIT 1',
         [utils.get_safe_name(id), id]
@@ -446,6 +446,8 @@ async def profile_select(id):
         return (await render_template('404.html'), 404)
 
     user_data['customisation'] = utils.has_profile_customizations(user_data['id'])
+    if user_data['userpage_content']: 
+        user_data['userpage_content'] = (md(bleach.clean(user_data['userpage_content'], tags=['p', 'br', 'b', 'i', 'u', 's', 'a', 'ol', 'li', 'img', 'center'], strip=True)).replace("\n", "<br>"))
     group_list = utils.get_user_badges(int(user_data['id']), int(user_data['priv']))
     return await render_template('profile.html', user=user_data, group_list=group_list, mode=mode, mods=mods, datetime=datetime, timeago=timeago)
 
