@@ -8,6 +8,7 @@ import os
 import time
 import timeago
 import datetime
+import bleach
 
 from cmyui.logging import Ansi
 from cmyui.logging import log
@@ -15,6 +16,7 @@ from functools import wraps
 from PIL import Image
 from pathlib import Path
 from quart import Blueprint
+from markdown import markdown as md
 from quart import redirect
 from quart import render_template
 from quart import request
@@ -283,6 +285,52 @@ async def settings_custom_post():
 
     return await flash_with_customizations('success', 'Your customisation has been successfully changed!', 'settings/custom')
 
+@frontend.route('/settings/aboutme')
+@login_required
+async def settings_aboutme():
+    user_data = await glob.db.fetch('SELECT userpage_content FROM users WHERE id = %s LIMIT 1',[session['user_data']['id']])
+    return await render_template('settings/aboutme.html', userpage_content=user_data['userpage_content'])
+
+@frontend.route('/settings/aboutme', methods=['POST'])
+@login_required
+async def settings_aboutme_post():
+    user_data2 = await glob.db.fetch('SELECT userpage_content FROM users WHERE id = %s LIMIT 1', [session['user_data']['id']])
+    form = await request.form
+    newaboutme = form.get('about_me_content', type=str)
+
+    if newaboutme is None:
+        return await flash('error', 'Invalid characters.', 'settings/aboutme')
+
+    if newaboutme == user_data2['userpage_content']:
+        return await flash('error', 'No changes have been made.', 'settings/aboutme')
+    
+    forbidden_keywords = [
+    'script',
+    'div',
+    'onhover',
+    'axios',
+    '<script>',
+    '<img src=x onerror=alert(1)>',
+    '<iframe>',
+    '<a href="javascript:alert(1)">',
+    '<input type="text" value="><img src=x onerror=alert(1)>" autofocus>',
+    '<svg onload=alert(1)>',
+    '<div style="background:url(javascript:alert(1))">',
+    '<object data="javascript:alert(1)">',
+    '<video><source onerror="javascript:alert(1)">',
+    '<marquee><script>alert(1)</script></marquee>'
+    ]
+    for keyword in forbidden_keywords:
+        if keyword in newaboutme:
+            return await flash('error', 'Invalid input: Dangerous keyword found, please dont try anything! :).', 'settings/aboutme')
+    
+    if len(newaboutme) > 2048:
+        return await flash('error', 'Your new about me excedeed the character limit of 2048.', 'settings/aboutme')
+    
+    newaboutme = bleach.clean(newaboutme, tags=['p', 'br', 'b', 'i', 'u', 's', 'a', 'ol', 'li', 'img', 'center'], strip=True)
+    
+    await glob.db.execute('UPDATE users SET userpage_content = %s WHERE id = %s', [newaboutme, session['user_data']['id']])
+    return await flash('success', 'Your about me has been succesfully changed!', 'settings/aboutme')
 
 @frontend.route('/settings/password')
 @login_required
