@@ -24,15 +24,19 @@ html {
 }
 
 .button.is-primary {
-  background-color: rgb(74, 74, 92.5);
+  background-color: rgb(96, 96, 120);
 }
 
 .button.is-primary.is-hovered, .button.is-primary:hover {
-  background-color: rgb(92, 92, 115);
+  background-color: rgb(128, 128, 160);
 }
 
 .button.is-info {
-  background-color: rgb(56, 56, 70);
+  background-color: rgb(64, 64, 80);
+}
+
+.button.is-info:hover {
+  background-color: rgb(96, 96, 120);
 }
 
 .box {

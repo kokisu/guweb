@@ -2,20 +2,27 @@
 {% block title %} 404 {% endblock %}
 
 {% block header %}
-<link rel="stylesheet" href="/static/css/pages/404.css">
-<style>html {--main: 355;}</style>
+<link rel="stylesheet" href="/static/css/pages/block.css">
+<style>
+  .title-block {
+	background-color: rgb(128, 64, 64);
+  }
+  .text-block {
+	background-color: rgb(80, 40, 40);
+  }
+</style>
 {% endblock %}
 
 {% block content %}
 <div class="main-block">
 	<div class="title-block">
 		<span>404</span>
-		<h2 class="error-title">
+		<h2 class="title-title">
 			Page not found
 		</h2>
 	</div>
-	<div class="error-block">
-		<h3 class="error-subtitle">Where am I?</h3>
+	<div class="text-block">
+		<h3 class="text-title">Where am I?</h3>
 		<ol>
 			<li>- Check that the URL you entered is correct.</li>
 			<li>- Make sure that the place you are visiting isn't under maintenance!</li>
