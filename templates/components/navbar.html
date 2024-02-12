@@ -19,6 +19,9 @@
                 <a class="navbar-item" href="/leaderboard">
                     Leaderboards
                 </a>
+                <a class="navbar-item" href="/topplays">
+                    Top Plays
+                </a>
                 <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link">
                         Docs
@@ -42,9 +45,6 @@
                         </a>
                     </div>
                 </div>
-                <a class="navbar-item" href="/topplays">
-                    Top Plays
-                </a>
                 {% if session.authenticated and session.user_data['is_staff'] %}
                 <a class="navbar-item" href="/admin">
                     Admin
