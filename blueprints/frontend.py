@@ -798,6 +798,11 @@ async def twitter_redirect():
 @frontend.route('/ig')
 async def instagram_redirect():
     return redirect(glob.config.instagram)
+    return redirect(glob.config.twitter)
+
+@frontend.route('/donate')
+async def donate_redirect():
+    return redirect(glob.config.donate)
 
 # profile customisation
 BANNERS_PATH = Path.cwd() / '.data/banners'
