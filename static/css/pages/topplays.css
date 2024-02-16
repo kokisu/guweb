@@ -2,6 +2,12 @@ html {
     background-color: rgb(48, 48, 60);
 }
 
+@media screen and (max-width: 1024px) {
+  .my-con {
+    margin-top: 150px;
+  }
+}
+
 .user-block {
     transition: .2s ease
 }

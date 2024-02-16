@@ -225,6 +225,37 @@ a.foot-link {
   background-size: contain;
 }
 
+.navbar-link {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .navbar-menu {
+  background-color: rgb(47, 47, 59) !important;
+}
+
+.navbar-item.is-active .navbar-dropdown,
+.navbar-item.is-hoverable:focus .navbar-dropdown,
+.navbar-item.is-hoverable:focus-within .navbar-dropdown,
+.navbar-item.is-hoverable:hover .navbar-dropdown {
+  display: block;
+}
+
+.navbar-dropdown {
+  background-color: rgb(47, 47, 59) !important;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-top: 1px solid rgba(0,0,0,.2);
+  box-shadow: 0 8px 8px rgba(10,10,10,.1);
+  display: none;
+  font-size: .875rem;
+  left: 0;
+  min-width: 100%;
+  position: absolute;
+  top: 100%;
+  z-index: 20;
+}
+
 .navbar-avatar {
   width: 36px;
   height: 36px;
