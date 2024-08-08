@@ -408,7 +408,7 @@
     {% if user['customisation']['banner'] == True %}
         .profile-bg {
             min-height: 262px;
-            background: linear-gradient(hsl(var(--main), 25%, 25%, 20%), hsl(var(--main), 25%, 25%, 60%)), url("/banners/{{ user['id'] }}");
+            background: linear-gradient(rgba(32, 32, 40, 0.1), rgba(32, 32, 40, 0.8)), url("/banners/{{ user['id'] }}");
             background-size: cover;
         }
     {% endif %}
