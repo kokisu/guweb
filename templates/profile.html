@@ -390,6 +390,18 @@
                     </div>
                 </div>
             </div>
+            {% if user['userpage_content'] %}
+            <div class="log-block">
+                <div class="header">
+                    <div class="title">
+                        <i class="fas fa-id-card"></i> About me
+                    </div>
+                </div> 
+                <div class="scores" style="padding: 10px;border-bottom-left-radius: 8px;border-bottom-right-radius: 8px;">
+                    {{ user['userpage_content'] | safe }} 
+                </div>
+            </div>
+            {% endif %}
             <div class="column">
                 {{ scores('Best Scores', 'best')}}
                 {{ scores('Recent Scores', 'recent')}}

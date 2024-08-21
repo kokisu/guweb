@@ -30,6 +30,7 @@
     var mode = "{{ mode }}";
     var mods = "{{ mods }}";
     var sort = "{{ sort }}";
+    var country = "{{ country }}";
     var domain = "{{ domain() }}";
     var page = parseInt("{{ page }}");
 </script>
@@ -42,40 +43,46 @@
     <div class="leaderboard-banner main-banner">
         <div class="main-selector">
             <a class="mode-select" v-bind:class="{ 'active': mode === 'std' }"
-                @click="LoadLeaderboard(sort, 'std', mods)">
+                @click="LoadLeaderboard(sort, 'std', mods, country)">
                 <i class="mode-icon mode-osu"></i><span class="modetext"> osu!</span>
             </a>
             <a class="mode-select" v-bind:class="{ 'active': mode === 'taiko', 'disabled': mods === 'ap' }"
-                @click="LoadLeaderboard(sort, 'taiko', mods)">
+                @click="LoadLeaderboard(sort, 'taiko', mods, country)">
                 <i class="mode-icon mode-taiko"></i><span class="modetext"> osu!taiko</span>
             </a>
             <a class="mode-select" v-bind:class="{ 'active': mode === 'catch', 'disabled': mods === 'ap' }"
-                @click="LoadLeaderboard(sort, 'catch', mods)">
+                @click="LoadLeaderboard(sort, 'catch', mods, country)">
                 <i class="mode-icon mode-catch"></i><span class="modetext"> osu!catch</span>
             </a>
             <a class="mode-select"
                 v-bind:class="{ 'active': mode === 'mania', 'disabled': mods === 'ap' || mods === 'rx' }"
-                @click="LoadLeaderboard(sort, 'mania', mods)">
+                @click="LoadLeaderboard(sort, 'mania', mods, country)">
                 <i class="mode-icon mode-mania"></i><span class="modetext"> osu!mania</span>
             </a>
         </div>
-        <div class="banner-text">Leaderboard</div>
+        <div class="banner-text" id="lb-name">Leaderboard</div>
         <div class="selector">
             <div class="left">
                 <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'pp' }"
-                    @click="LoadLeaderboard('pp', mode, mods)">PP</a>
+                    @click="LoadLeaderboard('pp', mode, mods, country)">PP</a>
                 <a class="simple-banner-switch" v-bind:class="{ 'active': sort === 'score' }"
-                    @click="LoadLeaderboard('score', mode, mods)">Score</a>
+                    @click="LoadLeaderboard('score', mode, mods, country)">Score</a>
+            </div>
+            <div class="right">
+                <div v-if="country !== 'all'">
+                    <a class="simple-banner-switch active" style="margin-left: auto;display: flex;flex-direction: row;" @click="LoadLeaderboard(sort, mode, mods, 'all')">
+                        <i class="fas fa-close" style="margin-right: 10px;margin-top:3px;"></i>Go back to server leaderboard
+                    </a>
             </div>
             <div class="right">
                 <a class="simple-banner-switch" v-bind:class=" { 'active': mods === 'vn' }"
-                    @click="LoadLeaderboard(sort, mode, 'vn')">Vanilla</a>
+                    @click="LoadLeaderboard(sort, mode, 'vn', country)">Vanilla</a>
                 <a class="simple-banner-switch"
                     v-bind:class=" { 'active': mods === 'rx', 'disabled': mode === 'mania' }"
-                    @click="LoadLeaderboard(sort, mode, 'rx')">Relax</a>
+                    @click="LoadLeaderboard(sort, mode, 'rx', country)">Relax</a>
                 <a class="simple-banner-switch"
                     v-bind:class=" { 'active': mods === 'ap', 'disabled': mode === 'taiko' || mode === 'catch' || mode === 'mania'  }"
-                    @click="LoadLeaderboard(sort, mode, 'ap')">Autopilot</a>
+                    @click="LoadLeaderboard(sort, mode, 'ap', country)">Autopilot</a>
             </div>
         </div>
     </div>
@@ -103,6 +110,7 @@
                             <td class="column-player-name text-left">
                                 <a :title="flags[user.country.toUpperCase()]"
                                     :style="'background-image: url(/static/images/flags/' + user.country.toUpperCase() + '.png)'"
+                                    @click="LoadLeaderboard(sort, mode, mods, user.country.toUpperCase())"
                                     class="player-flag">
                                     <div class="flag-dropdown">
                                         <% flags[user.country.toUpperCase()] %>
@@ -138,7 +146,7 @@
             </div>
             <div class="pager">
                 <span class="pager-btn" v-bind:class="(page === 0) ? 'btn-disabled' : ''"
-                    @click="if (page > 0) LoadLeaderboard(sort, mode, mods, -1)">
+                    @click="if (page > 0) LoadLeaderboard(sort, mode, mods, country, -1)">
                     <span>
                         <i class="fa-solid fa-chevron-left"></i>
                     </span>
@@ -146,7 +154,7 @@
                 Page <% page + 1 %>
                 <span class="pager-btn"
                     v-bind:class="(page === (page + 1) || boards.length < 50) ? 'btn-disabled' : '3'"
-                    @click="if (boards.length == 50) LoadLeaderboard(sort, mode, mods, 1)">
+                    @click="if (boards.length == 50) LoadLeaderboard(sort, mode, mods, country, 1)">
                     <span>
                         <i class="fa-solid fa-chevron-right"></i>
                     </span>

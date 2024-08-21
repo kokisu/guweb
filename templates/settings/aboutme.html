@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %} About me {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="/static/css/pages/settings/style.css">
+
+<div class="main-block">
+  {% include "settings/sidebar.html" %}
+  <div class="block-content right">
+    <div id="general" class="single-right-block">
+      <div class="right-block-header">
+        About Me
+      </div>
+      <form action="/settings/aboutme" method="post" class="setting-block-content">
+        <div class="single-block-content">
+          <div class="block-content--left">
+            <div class="field-label is-normal">
+              <label class="label">About Me</label>
+              <label class="subtitle">You can only use <a href="https://markdown-it.github.io/">markdown</a> here <br>content must be under 2048 and must not have any explicit or rule-breaking content, it may lead to a restriction from changing your about me</br></label>
+            </div>
+          </div>
+          {% if userpage_content != None %}
+          <div class="block-content--right">
+            <div class="field-body">
+              <div class="field">
+                <p class="control">
+                <textarea class="textarea" placeholder="Place some cool text here" name="about_me_content">{{ userpage_content }}</textarea>
+                </p>
+              </div>
+            </div>
+          </div>
+          {% else %}
+          <div class="block-content--right">
+            <div class="field-body">
+              <div class="field">
+                <p class="control">
+                <textarea class="textarea" placeholder="Place some cool text here" name="about_me_content"></textarea>
+                </p>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+        <button class='button is-primary' type='submit'><span>Save</span><span class='icon is-small'><i class='fas fa-check'></i></span></button>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% if flash %}
+<div class='noti-banner noti-banner-warning'>
+  <div class="container">
+    <div class="noti-column">
+      <div class='noti-col noti-col-icon'></div>
+      <div class='noti-col noti-col-label'>
+        <div class='noti-bannertype'>
+          {% if status=='error' %}
+          Warning
+          {% elif status=='success' %}
+          Notice
+          {% endif %}
+        </div>
+        <div class='noti-bannertext'>
+          {% if status=='error' %}
+          Uh oh! Be careful!
+          {% elif status=='success' %}
+          Hey! Listen!
+          {% endif %}
+        </div>
+      </div>
+      <div class='noti-banner-text'>
+        {{ flash }}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% endblock %}
